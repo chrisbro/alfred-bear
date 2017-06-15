@@ -29,7 +29,7 @@ def main(wf):
     results = execute_search_query(args)
 
   if not results:
-      workflow.add_item('No items')
+      wf.add_item('No search results found.')
   else:
     for result in results:
       log.debug(result)
@@ -80,8 +80,8 @@ def execute_search_query(args):
   return results
 
 def search_notes(query):
-    sqlQuery = "SELECT ZUNIQUEIDENTIFIER, ZTITLE FROM ZSFNOTE WHERE lower(ZTITLE) LIKE lower('%{0}%')".format(query)
-    #todo: only search active notes, search text as sell as title, figure out best way to sort results
+    sqlQuery = "SELECT ZUNIQUEIDENTIFIER, ZTITLE FROM ZSFNOTE WHERE ZARCHIVED=0 AND ZTRASHED=0 AND lower(ZTITLE) LIKE lower('%{0}%')".format(query)
+    #todo: search text as well as title, figure out best way to sort results
     return run_query(sqlQuery)
 
 def run_query(sql):
