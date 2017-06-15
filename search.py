@@ -1,13 +1,20 @@
 #!/usr/bin/python
 # encoding: utf-8
 
-#import sqlite3
 import os
 import sys
 import argparse
 import datetime
 import sqlite3
 from workflow import Workflow
+
+#TODOs
+# break queries out into separate file
+# break SQL running out into separate file
+# create class for the note and populate/return that to main script? seems heavy
+# create note via create callback endpoint
+# search notes via tag callback endpoint
+# append/prepend text to note via append callback endpoint
 
 DB_LOCATION = ("/Library/Containers/net.shinyfrog.bear/Data/Library/Application Support/net.shinyfrog.bear/database.sqlite")
 MAS_DB_LOCATION = DB_LOCATION.replace('.dunno', '.dunno.MacAppStore')
@@ -93,7 +100,6 @@ def run_query(sql):
     log.debug(db_path)
 
   conn = sqlite3.connect(db_path)
-  # conn.row_factory = sqlite3.Row
   cursor = conn.cursor()
   log.debug(sql)
   cursor.execute(sql)
@@ -103,7 +109,6 @@ def run_query(sql):
   return results
 
 if __name__ == '__main__':
-  #workflow = Workflow(update_settings=UPDATE_SETTINGS)
   wf = Workflow()
   log = wf.logger
   sys.exit(wf.run(main))
