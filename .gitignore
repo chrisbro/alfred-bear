@@ -1,0 +1,6 @@
+.DS_Store
+*.pyc
+workflow/*.pyc
+copyPlist.sh
+copyToWorkflow.sh
+Alfred_Workflow-1.26.dist-info/*

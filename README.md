@@ -1,0 +1,1 @@
+Run copyPlist.sh whenever the Alfred workflow itself is edited
