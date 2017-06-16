@@ -15,6 +15,9 @@ from workflow import Workflow
 # search notes by tag
 # append/prepend text to note via append callback endpoint
 
+TITLE = "i"
+TAGS = "a"
+
 SINGLE_QUOTE = "'"
 ESC_SINGLE_QUOTE = "''"
 
@@ -34,12 +37,15 @@ def main(wf):
   else:
     for result in results:
       log.debug(result)
-      wf.add_item(title=result[1], arg=result[0], valid=True)
+      wf.add_item(title=result[0], arg=result[0], valid=True)
 
   wf.send_feedback()
 
 def parse_args():
   parser = argparse.ArgumentParser(description="Search Bear Notes")
+  parser.add_argument('-t', '--type', default=TITLE,
+    choices=[TITLE, TAGS],
+    type=str, help='What to search for: t(i)tle, or t(a)gs?')
   parser.add_argument('query', type=unicode, nargs=argparse.REMAINDER, help='query string')
 
   log.debug(wf.args)
@@ -53,8 +59,13 @@ def execute_search_query(args):
 
     if SINGLE_QUOTE in query:
         query = query.replace(SINGLE_QUOTE, ESC_SINGLE_QUOTE)
-    
-  results = queries.search_notes_by_title(wf, log, query)
+
+  if args.type == TAGS:
+    log.debug('Searching tags')
+    results = queries.search_notes_by_tag(wf, log, query)
+  else:
+    log.debug('Searching tasks')
+    results = queries.search_notes_by_title(wf, log, query)
   return results
 
 if __name__ == '__main__':

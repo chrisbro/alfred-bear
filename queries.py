@@ -17,15 +17,15 @@ NOTE_TITLE_SEARCH = (
 
 NOTE_TAG_SEARCH = (
     "SELECT "
-        "n.ZUNIQUEIDENTIFIER, "
-        "n.ZTITLE "
+        "t.ZTITLE "
     "FROM "
         "ZSFNOTE n "
-        "INNER JOIN ZSFNOTETAG t ON n.Z_PK = t.Z_PK "
+        "INNER JOIN Z_5TAGS nt ON n.Z_PK = nt.Z_5NOTES "
+        "INNER JOIN ZSFNOTETAG t ON nt.Z_10TAGS = t.Z_PK "
     "WHERE "
         "n.ZARCHIVED=0 "
         "AND n.ZTRASHED=0 "
-        "AND lower(n.ZTITLE) LIKE lower('%{0}%')")
+        "AND lower(t.ZTITLE) LIKE lower('%{0}%')")
 
 
 def search_notes_by_title(wf, log, query):
