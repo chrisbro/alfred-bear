@@ -37,7 +37,10 @@ def main(wf):
   else:
     for result in results:
       log.debug(result)
-      wf.add_item(title=result[0], arg=result[0], valid=True)
+      if args.type == TAGS:
+        wf.add_item(title=result[0], arg=result[0], valid=True)
+      else:
+        wf.add_item(title=result[1], arg=result[0], valid=True)
 
   wf.send_feedback()
 
