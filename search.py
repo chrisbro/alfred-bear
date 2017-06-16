@@ -12,7 +12,6 @@ from workflow import Workflow
 # break SQL running out into separate file
 # create class for the note and populate/return that to main script? seems heavy
 # create note via create callback endpoint
-# search notes by tag
 # append/prepend text to note via append callback endpoint
 
 TITLE = "i"
