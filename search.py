@@ -8,7 +8,7 @@ Main search script for alfred-bear workflow.
 import sys
 import argparse
 import queries
-from workflow import Workflow
+from workflow import Workflow, ICON_SYNC
 
 TITLE = "i"
 TAGS = "a"
@@ -18,11 +18,21 @@ ESC_SINGLE_QUOTE = "''"
 
 LOGGER = None
 
+# Update workflow from GitHub repo
+UPDATE_SETTINGS = {'github_slug': 'chrisbro/alfred-bear'}
+SHOW_UPDATES = True
+
 
 def main(workflow):
     """
     I'm just here so I don't get fined by pylint
     """
+
+    if SHOW_UPDATES and workflow.update_available:
+        workflow.add_item('A new version is available',
+                          'Action this item to install the update',
+                          autocomplete='workflow:update',
+                          icon=ICON_SYNC)
 
     LOGGER.debug('Started search workflow')
     args = parse_args()
@@ -83,6 +93,6 @@ def execute_search_query(args):
 
 
 if __name__ == '__main__':
-    WORKFLOW = Workflow()
+    WORKFLOW = Workflow(update_settings=UPDATE_SETTINGS)
     LOGGER = WORKFLOW.logger
     sys.exit(WORKFLOW.run(main))
