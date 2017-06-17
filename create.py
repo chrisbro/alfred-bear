@@ -25,9 +25,27 @@ def main(workflow):
 
     if not '#' in query:
         title = query
-        workflow.add_item(title='Create note with title ' + title, arg=title, valid=True)
+        query_string = create_query_output(title, tags)
+        workflow.add_item(title='Create note with title ' +
+                          title, arg=query_string, valid=True)
 
     workflow.send_feedback()
+
+
+def create_query_output(title, tags):
+    """
+    Generates what query parameters to pass to the Alfred callback step.
+    """
+
+    query_string = ''
+    if title:
+        query_string += 'title=' + title
+        query_string += '&text=' + title
+    if tags:
+        query_string += '&tags=' + tags
+    LOGGER.debug(query_string)
+
+    return query_string
 
 
 if __name__ == '__main__':

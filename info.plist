@@ -21,6 +21,19 @@
 				<false/>
 			</dict>
 		</array>
+		<key>74B5AEA1-6AFC-4867-A76D-0FD11694A60D</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>B7C7DDC1-B797-4FF0-8AA0-0362C306C19A</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>A10CF1DB-F3D4-4248-A45A-0954FE2C61E7</key>
 		<array>
 			<dict>
@@ -110,6 +123,25 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>browser</key>
+				<string></string>
+				<key>spaces</key>
+				<string></string>
+				<key>url</key>
+				<string>bear://x-callback-url/open-tag?name={query}</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>CFACA8AD-213C-4FD7-9655-E7A446271FDE</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>alfredfiltersresults</key>
 				<false/>
 				<key>argumenttype</key>
@@ -158,16 +190,82 @@
 				<key>spaces</key>
 				<string></string>
 				<key>url</key>
-				<string>bear://x-callback-url/open-tag?name={query}</string>
+				<string>bear://x-callback-url/create?{query}</string>
 				<key>utf8</key>
 				<true/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.action.openurl</string>
 			<key>uid</key>
-			<string>CFACA8AD-213C-4FD7-9655-E7A446271FDE</string>
+			<string>44A69C02-B8C6-4DEB-9F3D-8AAAE89FF840</string>
 			<key>version</key>
 			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>open "bear://x-callback-url/create?{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>B7C7DDC1-B797-4FF0-8AA0-0362C306C19A</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>bn</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Searching...</string>
+				<key>script</key>
+				<string>/usr/bin/python create.py "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
+				<key>title</key>
+				<string>Create New Bear Note</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>74B5AEA1-6AFC-4867-A76D-0FD11694A60D</string>
+			<key>version</key>
+			<integer>2</integer>
 		</dict>
 	</array>
 	<key>readme</key>
@@ -180,6 +278,20 @@
 			<integer>280</integer>
 			<key>ypos</key>
 			<integer>50</integer>
+		</dict>
+		<key>44A69C02-B8C6-4DEB-9F3D-8AAAE89FF840</key>
+		<dict>
+			<key>xpos</key>
+			<integer>770</integer>
+			<key>ypos</key>
+			<integer>240</integer>
+		</dict>
+		<key>74B5AEA1-6AFC-4867-A76D-0FD11694A60D</key>
+		<dict>
+			<key>xpos</key>
+			<integer>280</integer>
+			<key>ypos</key>
+			<integer>310</integer>
 		</dict>
 		<key>A10CF1DB-F3D4-4248-A45A-0954FE2C61E7</key>
 		<dict>
@@ -194,6 +306,13 @@
 			<integer>520</integer>
 			<key>ypos</key>
 			<integer>50</integer>
+		</dict>
+		<key>B7C7DDC1-B797-4FF0-8AA0-0362C306C19A</key>
+		<dict>
+			<key>xpos</key>
+			<integer>520</integer>
+			<key>ypos</key>
+			<integer>310</integer>
 		</dict>
 		<key>CFACA8AD-213C-4FD7-9655-E7A446271FDE</key>
 		<dict>
