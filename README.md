@@ -1,6 +1,6 @@
 # Bear Alfred Workflow
 
-[Alfred 3 workflow](https://www.alfredapp.com/workflows/) to search and create notes in [Bear](http://www.bear-writer.com/).
+[Alfred 3 workflow](https://www.alfredapp.com/workflows/) to search and create notes in [Bear](http://www.bear-writer.com/). View it on [Packal](http://www.packal.org/workflow/bear), or [join in the discussion on the Alfred forums](https://www.alfredforum.com/topic/10403-bear-workflow-search-and-create-notes/).
 
 ## Install
 To install, download a [released alfred-bear workflow](https://github.com/chrisbro/alfred-bear/releases/download/0.1.0/alfred-bear.alfredworkflow) and double-click to open in Alfred 3. Easy-peasy.
