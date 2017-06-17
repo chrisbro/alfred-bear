@@ -7,16 +7,20 @@ To install, download a [released alfred-bear workflow](https://github.com/chrisb
 
 ## Searching and opening results 
 `bs` -- Search for a note by title and open it in Bear.
+
 ![](bs.png)
 
 `bst` -- Search for a tag (a group of notes) by tag title and open it in Bear.
+
 ![](bst.png)
 
 ## Creating a new note
 `bn I love notes!` -- Creates a new note with the title and text "*I love notes!*"
+
 ![](bn1.png)
 
 `bn I love notes! #love #notes` -- Creates a new note with the title and text "*I love notes!*" and the tags "*#love*" and "*#notes*"
+
 ![](bn2.png)
 
 ## Known Issues
