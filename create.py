@@ -6,6 +6,7 @@ Note creation script for alfred-bear workflow.
 """
 
 import sys
+from urllib import quote
 from workflow import Workflow
 
 LOGGER = None
@@ -28,6 +29,8 @@ def main(workflow):
     tags_string = ', '.join(tags)
     title_string = strip_tags_from_string(tags, title)
     query_string = create_query_output(title, tags)
+    LOGGER.debug(title_string)
+    LOGGER.debug(query_string)
     if tags:
         workflow.add_item(title='Create note with title ' + title_string,
                           subtitle='Tags: ' + tags_string, arg=query_string, valid=True)
@@ -45,13 +48,13 @@ def create_query_output(title, tags):
 
     query_string = ''
     if title:
-        query_string += 'title=' + title
-        query_string += '&text=' + title
+        query_string += 'title=' + quote(title)
+        query_string += '&text=' + quote(title)
 
     if tags:
         tags_string = ''
         for tag in tags:
-            tags_string += tag + ','
+            tags_string += quote(tag) + ','
         query_string = strip_tags_from_string(tags, query_string)
         tags_string = tags_string[:-1]
         query_string += '&tags=' + tags_string
@@ -66,6 +69,7 @@ def strip_tags_from_string(tags, query):
     Yanks out all the hashtags from a string.
     """
     for tag in tags:
+        query = query.replace(quote('#' + tag), '')
         query = query.replace('#' + tag, '')
     return query
 
