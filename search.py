@@ -10,10 +10,6 @@ import argparse
 import queries
 from workflow import Workflow
 
-# create class for the note and populate/return that to main script? seems heavy
-# create note via create callback endpoint
-# append/prepend text to note via append callback endpoint
-
 TITLE = "i"
 TAGS = "a"
 
