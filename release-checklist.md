@@ -6,6 +6,7 @@ In Alfred:
 - Update "[About this workflow](https://www.alfredapp.com/help/workflows/advanced/sharing-workflows/)"
 - Update workflow version
 - Check that it works with ~/Library/Application Support/Alfred 3/Workflow Data/com.chrisbro.bear removed
+- Copy plist over to git
 - Export workflow from Alfred
 
 Github:
