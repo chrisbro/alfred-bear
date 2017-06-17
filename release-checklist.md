@@ -13,6 +13,7 @@ Github:
 
 - Add release notes to README
 - Create github release and upload workflow
+- Update link to new release binary
 
 Packal:
 - Use http://dillinger.io/ to generate text and update
