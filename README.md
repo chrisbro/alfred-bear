@@ -28,3 +28,8 @@ To install, download a released alfred-bear.alfredworkflow and double-click to o
 - [deanishe](https://www.alfredforum.com/profile/5235-deanishe/) for guidance on Alfred workflow creation and capabilities, and for his excellent [Python workflow library](http://www.deanishe.net/alfred-workflow/index.html).
 - [dfay](https://www.alfredforum.com/profile/3468-dfay/) for guidance from his experience writing the [Ulysses Alfred workflow](https://github.com/robwalton/alfred-ulysses-workflow).
 - [Rhyd Lewis](https://github.com/rhydlewis) for giving me an excellent example to work off of in his [Omnifocus Alfred workflow](https://github.com/rhydlewis/search-omnifocus).
+
+## Versions
+
+**0.1.0** 
+Initial public release.
