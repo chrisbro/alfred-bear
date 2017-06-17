@@ -12,7 +12,6 @@ To install, download a released alfred-bear.alfredworkflow and double-click to o
 ## Todo
 - Create new notes.
 - Append text to existing notes.
-- I need an icon.png in this folder I bet...
 - Create release checklist like [this one](https://github.com/robwalton/alfred-ulysses-workflow/blob/master/release-checklist.md).
 - Create release and all that.
 - Make Github repo public.
