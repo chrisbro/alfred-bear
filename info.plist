@@ -4,8 +4,6 @@
 <dict>
 	<key>bundleid</key>
 	<string>com.chrisbro.bear</string>
-	<key>category</key>
-	<string>Productivity</string>
 	<key>connections</key>
 	<dict>
 		<key>1A741966-5341-40BC-996D-68EAB30F62AA</key>
@@ -51,7 +49,7 @@
 	<key>createdby</key>
 	<string>Chris Brown</string>
 	<key>description</key>
-	<string>Bear Alfred Workflows</string>
+	<string>Search and create Bear notes from Alfred</string>
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
@@ -185,25 +183,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>browser</key>
-				<string></string>
-				<key>spaces</key>
-				<string></string>
-				<key>url</key>
-				<string>bear://x-callback-url/create?{query}</string>
-				<key>utf8</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.openurl</string>
-			<key>uid</key>
-			<string>44A69C02-B8C6-4DEB-9F3D-8AAAE89FF840</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>concurrently</key>
 				<false/>
 				<key>escaping</key>
@@ -269,7 +248,21 @@
 		</dict>
 	</array>
 	<key>readme</key>
-	<string></string>
+	<string># Bear Alfred Workflow
+
+[Alfred 3 workflow](https://www.alfredapp.com/workflows/) to search and create notes in [Bear](http://www.bear-writer.com/).
+
+## Install
+To install, download a released alfred-bear.alfredworkflow and double-click to open in Alfred 3. Easy-peasy.
+
+## Searching and opening results 
+- `bs` -- Search for a note by title and open it in Bear.
+- `bst` -- Search for a tag (a group of notes) by tag title and open it in Bear.
+
+## Creating a new note
+- `bn` -- Create a new note with input as title. Tags optional.
+	- `bn I love notes!` -- Creates a new note with the title and text "*I love notes!*"
+	- `bn I love notes! #love #notes` -- Creates a new note with the title and text "*I love notes!*" and the tags "*#love*" and "*#notes*"</string>
 	<key>uidata</key>
 	<dict>
 		<key>1A741966-5341-40BC-996D-68EAB30F62AA</key>
@@ -278,13 +271,6 @@
 			<integer>280</integer>
 			<key>ypos</key>
 			<integer>50</integer>
-		</dict>
-		<key>44A69C02-B8C6-4DEB-9F3D-8AAAE89FF840</key>
-		<dict>
-			<key>xpos</key>
-			<integer>770</integer>
-			<key>ypos</key>
-			<integer>240</integer>
 		</dict>
 		<key>74B5AEA1-6AFC-4867-A76D-0FD11694A60D</key>
 		<dict>
@@ -322,6 +308,8 @@
 			<integer>180</integer>
 		</dict>
 	</dict>
+	<key>version</key>
+	<string>0.1.0</string>
 	<key>webaddress</key>
 	<string>https://github.com/chrisbro/alfred-bear</string>
 </dict>
