@@ -24,7 +24,7 @@ def main(workflow):
     I'm just here so I don't get fined by pylint
     """
 
-    LOGGER.debug('Started workflow')
+    LOGGER.debug('Started search workflow')
     args = parse_args()
 
     if args.query:
