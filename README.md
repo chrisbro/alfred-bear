@@ -6,13 +6,18 @@
 To install, download a [released alfred-bear workflow](https://github.com/chrisbro/alfred-bear/releases/download/0.1.0/alfred-bear.alfredworkflow) and double-click to open in Alfred 3. Easy-peasy.
 
 ## Searching and opening results 
-- `bs` -- Search for a note by title and open it in Bear.
-- `bst` -- Search for a tag (a group of notes) by tag title and open it in Bear.
+`bs` -- Search for a note by title and open it in Bear.
+![](bs.png)
+
+`bst` -- Search for a tag (a group of notes) by tag title and open it in Bear.
+![](bst.png)
 
 ## Creating a new note
-- `bn` -- Create a new note with input as title. Tags optional.
-	- `bn I love notes!` -- Creates a new note with the title and text "*I love notes!*"
-	- `bn I love notes! #love #notes` -- Creates a new note with the title and text "*I love notes!*" and the tags "*#love*" and "*#notes*"
+`bn I love notes!` -- Creates a new note with the title and text "*I love notes!*"
+![](bn1.png)
+
+`bn I love notes! #love #notes` -- Creates a new note with the title and text "*I love notes!*" and the tags "*#love*" and "*#notes*"
+![](bn2.png)
 
 ## Known Issues
 - Creating tags only works with single-word tags - multiword tags hopefully to come.
