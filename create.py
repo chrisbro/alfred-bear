@@ -23,11 +23,17 @@ def main(workflow):
     title = None
     tags = None
 
-    if not '#' in query:
-        title = query
-        query_string = create_query_output(title, tags)
-        workflow.add_item(title='Create note with title ' +
-                          title, arg=query_string, valid=True)
+    title = query
+    tags = extract_tags(query)
+    tags_string = ', '.join(tags)
+    title_string = strip_tags_from_string(tags, title)
+    query_string = create_query_output(title, tags)
+    if tags:
+        workflow.add_item(title='Create note with title ' + title_string,
+                          subtitle='Tags: ' + tags_string, arg=query_string, valid=True)
+    else:
+        workflow.add_item(title='Create note with title ' + title_string,
+                          arg=query_string, valid=True)
 
     workflow.send_feedback()
 
@@ -41,11 +47,34 @@ def create_query_output(title, tags):
     if title:
         query_string += 'title=' + title
         query_string += '&text=' + title
+
     if tags:
-        query_string += '&tags=' + tags
+        tags_string = ''
+        for tag in tags:
+            tags_string += tag + ','
+        query_string = strip_tags_from_string(tags, query_string)
+        tags_string = tags_string[:-1]
+        query_string += '&tags=' + tags_string
+
     LOGGER.debug(query_string)
 
     return query_string
+
+
+def strip_tags_from_string(tags, query):
+    """
+    Yanks out all the hashtags from a string.
+    """
+    for tag in tags:
+        query = query.replace('#' + tag, '')
+    return query
+
+
+def extract_tags(query):
+    """
+    Gets all the tags from the query.
+    """
+    return set(part[1:] for part in query.split() if part.startswith('#'))
 
 
 if __name__ == '__main__':

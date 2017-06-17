@@ -5,12 +5,16 @@
 ## Install
 To install, download a released alfred-bear.alfredworkflow and double-click to open in Alfred 3. Easy-peasy.
 
-## Searching and opening results
+## Searching and opening results 
 - `bs` -- Search for a note by title and open it in Bear.
 - `bst` -- Search for a tag (a group of notes) by tag title and open it in Bear.
 
+## Creating a new note
+- `bn` -- Create a new note with input as title. Tags optional.
+	- `bn I love notes!` -- Creates a new note with the title and text "*I love notes!*"
+	- `bn I love notes! #love #notes` -- Creates a new note with the title and text "*I love notes!*" and the tags "*#love*" and "*#notes*"
+
 ## Todo
-- Create new notes.
 - Append text to existing notes.
 - Create release checklist like [this one](https://github.com/robwalton/alfred-ulysses-workflow/blob/master/release-checklist.md).
 - Create release and all that.
