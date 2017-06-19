@@ -28,10 +28,7 @@ To install, download a [released alfred-bear workflow](https://github.com/chrisb
 
 ## Todo
 - Append text to existing notes.
-- Create release checklist like [this one](https://github.com/robwalton/alfred-ulysses-workflow/blob/master/release-checklist.md).
-- Create release and all that.
-- Make Github repo public.
-- Figure out Packal and upload there.
+- Figure out multi-word tags.
 
 ## Thanks
 - [deanishe](https://www.alfredforum.com/profile/5235-deanishe/) for guidance on Alfred workflow creation and capabilities, and for his excellent [Python workflow library](http://www.deanishe.net/alfred-workflow/index.html).
