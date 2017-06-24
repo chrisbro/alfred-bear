@@ -13,8 +13,8 @@ DB_LOCATION = (
     "net.shinyfrog.bear/database.sqlite")
 DB_KEY = 'db_path'
 
-NOTE_TITLE_SEARCH = (
-    "SELECT "
+NOTES_BY_TITLE = (
+    "SELECT DISTINCT"
     "   ZUNIQUEIDENTIFIER, ZTITLE "
     "FROM "
     "   ZSFNOTE "
@@ -23,8 +23,8 @@ NOTE_TITLE_SEARCH = (
     "   AND ZTRASHED=0 "
     "   AND lower(ZTITLE) LIKE lower('%{0}%')")
 
-TAG_SEARCH = (
-    "SELECT "
+TAGS_BY_TITLE = (
+    "SELECT DISTINCT"
     "   t.ZTITLE "
     "FROM "
     "   ZSFNOTE n "
@@ -35,8 +35,8 @@ TAG_SEARCH = (
     "   AND n.ZTRASHED=0 "
     "   AND lower(t.ZTITLE) LIKE lower('%{0}%')")
 
-NOTE_TAGNAME_SEARCH = (
-    "SELECT "
+NOTES_BY_TAG_TITLE = (
+    "SELECT DISTINCT"
     "   n.ZUNIQUEIDENTIFIER, n.ZTITLE "
     "FROM "
     "   ZSFNOTE n "
@@ -52,25 +52,25 @@ def search_notes_by_title(workflow, log, query):
     Searches for bear notes by the title of the note.
     """
 
-    sql_query = NOTE_TITLE_SEARCH.format(query)
+    sql_query = NOTES_BY_TITLE.format(query)
     return run_query(workflow, log, sql_query)
 
 
-def search_tags(workflow, log, query):
+def search_tags_by_title(workflow, log, query):
     """
     Searches for Bear tags by tag name.
     """
 
-    sql_query = TAG_SEARCH.format(query)
+    sql_query = TAGS_BY_TITLE.format(query)
     return run_query(workflow, log, sql_query)
 
 
-def search_notes_by_tagname(workflow, log, query):
+def search_notes_by_tag_title(workflow, log, query):
     """
     Searches for Bear notes by tag name.
     """
 
-    sql_query = NOTE_TAGNAME_SEARCH.format(query)
+    sql_query = NOTES_BY_TAG_TITLE.format(query)
     return run_query(workflow, log, sql_query)
 
 

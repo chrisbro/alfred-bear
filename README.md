@@ -37,5 +37,9 @@ To install, download a [released alfred-bear workflow](https://github.com/chrisb
 
 ## Versions
 
+**0.2.0**
+* Searching by tag now displays not only tags that match the search query, but notes that match those tags as well.
+* Searching by tag now works with *or* without the '#' symbol in front of the tag.
+
 **0.1.0** 
 Initial public release.

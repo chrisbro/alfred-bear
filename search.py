@@ -75,8 +75,9 @@ def execute_search_query(args):
 
     if args.type == TAGS:
         LOGGER.debug('Searching tags')
-        tag_results = queries.search_tags(WORKFLOW, LOGGER, query)
-        note_results = queries.search_notes_by_tagname(WORKFLOW, LOGGER, query)
+        query = query.replace('#', '')
+        tag_results = queries.search_tags_by_title(WORKFLOW, LOGGER, query)
+        note_results = queries.search_notes_by_tag_title(WORKFLOW, LOGGER, query)
         if not tag_results:
             WORKFLOW.add_item('No search results found.')
         else:
@@ -92,14 +93,14 @@ def execute_search_query(args):
                                   arg=note_arg, valid=True)
 
     else:
-        LOGGER.debug('Searching tasks')
+        LOGGER.debug('Searching notes')
         results = queries.search_notes_by_title(WORKFLOW, LOGGER, query)
         if not results:
             WORKFLOW.add_item('No search results found.')
         else:
             for result in results:
                 LOGGER.debug(results)
-                WORKFLOW.add_item(title=result[1], arg=result[0], valid=True)
+                WORKFLOW.add_item(title=result[1], subtitle="Open note", arg=result[0], valid=True)
 
 
 if __name__ == '__main__':
