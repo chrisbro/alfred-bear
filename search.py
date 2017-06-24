@@ -40,17 +40,7 @@ def main(workflow):
     if args.query:
         query = args.query[0]
         LOGGER.debug("Searching notes for %s", format(query))
-        results = execute_search_query(args)
-
-    if not results:
-        workflow.add_item('No search results found.')
-    else:
-        for result in results:
-            LOGGER.debug(result)
-            if args.type == TAGS:
-                workflow.add_item(title=result[0], arg=result[0], valid=True)
-            else:
-                workflow.add_item(title=result[1], arg=result[0], valid=True)
+        execute_search_query(args)
 
     workflow.send_feedback()
 
@@ -85,11 +75,31 @@ def execute_search_query(args):
 
     if args.type == TAGS:
         LOGGER.debug('Searching tags')
-        results = queries.search_notes_by_tag(WORKFLOW, LOGGER, query)
+        tag_results = queries.search_tags(WORKFLOW, LOGGER, query)
+        note_results = queries.search_notes_by_tagname(WORKFLOW, LOGGER, query)
+        if not tag_results:
+            WORKFLOW.add_item('No search results found.')
+        else:
+            for tag_result in tag_results:
+                LOGGER.debug(tag_result)
+                tag_arg = ':t:'+ tag_result[0]
+                LOGGER.debug(tag_arg)
+                WORKFLOW.add_item(title=tag_result[0], subtitle="Open tag", arg=tag_arg, valid=True)
+            for note_result in note_results:
+                LOGGER.debug(note_results)
+                note_arg = ':n:' + note_result[0]
+                WORKFLOW.add_item(title=note_result[1], subtitle="Open note",
+                                  arg=note_arg, valid=True)
+
     else:
         LOGGER.debug('Searching tasks')
         results = queries.search_notes_by_title(WORKFLOW, LOGGER, query)
-    return results
+        if not results:
+            WORKFLOW.add_item('No search results found.')
+        else:
+            for result in results:
+                LOGGER.debug(results)
+                WORKFLOW.add_item(title=result[1], arg=result[0], valid=True)
 
 
 if __name__ == '__main__':

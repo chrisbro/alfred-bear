@@ -36,7 +36,7 @@
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>CFACA8AD-213C-4FD7-9655-E7A446271FDE</string>
+				<string>34803D0C-B70E-4032-96FA-E0A5E179236A</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -80,6 +80,8 @@
 			<dict>
 				<key>alfredfiltersresults</key>
 				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>escaping</key>
@@ -121,27 +123,41 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>browser</key>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>orig_query={query}
+echo $orig_query
+if [[ $orig_query == ":t:"* ]]; then
+	new_query=${orig_query:3}
+	open "bear://x-callback-url/open-tag?name=$new_query"
+else
+	new_query=${orig_query:3}
+	open "bear://x-callback-url/open-note?id=$new_query"
+fi</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
 				<string></string>
-				<key>spaces</key>
-				<string></string>
-				<key>url</key>
-				<string>bear://x-callback-url/open-tag?name={query}</string>
-				<key>utf8</key>
-				<true/>
+				<key>type</key>
+				<integer>0</integer>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.action.openurl</string>
+			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>CFACA8AD-213C-4FD7-9655-E7A446271FDE</string>
+			<string>34803D0C-B70E-4032-96FA-E0A5E179236A</string>
 			<key>version</key>
-			<integer>1</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
 				<key>alfredfiltersresults</key>
 				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>escaping</key>
@@ -208,6 +224,8 @@
 			<dict>
 				<key>alfredfiltersresults</key>
 				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>escaping</key>
@@ -272,6 +290,13 @@ To install, download a released alfred-bear.alfredworkflow and double-click to o
 			<key>ypos</key>
 			<integer>50</integer>
 		</dict>
+		<key>34803D0C-B70E-4032-96FA-E0A5E179236A</key>
+		<dict>
+			<key>xpos</key>
+			<integer>520</integer>
+			<key>ypos</key>
+			<integer>180</integer>
+		</dict>
 		<key>74B5AEA1-6AFC-4867-A76D-0FD11694A60D</key>
 		<dict>
 			<key>xpos</key>
@@ -299,13 +324,6 @@ To install, download a released alfred-bear.alfredworkflow and double-click to o
 			<integer>520</integer>
 			<key>ypos</key>
 			<integer>310</integer>
-		</dict>
-		<key>CFACA8AD-213C-4FD7-9655-E7A446271FDE</key>
-		<dict>
-			<key>xpos</key>
-			<integer>520</integer>
-			<key>ypos</key>
-			<integer>180</integer>
 		</dict>
 	</dict>
 	<key>version</key>

@@ -23,7 +23,7 @@ NOTE_TITLE_SEARCH = (
     "   AND ZTRASHED=0 "
     "   AND lower(ZTITLE) LIKE lower('%{0}%')")
 
-NOTE_TAG_SEARCH = (
+TAG_SEARCH = (
     "SELECT "
     "   t.ZTITLE "
     "FROM "
@@ -35,6 +35,17 @@ NOTE_TAG_SEARCH = (
     "   AND n.ZTRASHED=0 "
     "   AND lower(t.ZTITLE) LIKE lower('%{0}%')")
 
+NOTE_TAGNAME_SEARCH = (
+    "SELECT "
+    "   n.ZUNIQUEIDENTIFIER, n.ZTITLE "
+    "FROM "
+    "   ZSFNOTE n "
+    "   INNER JOIN Z_5TAGS nt ON n.Z_PK = nt.Z_5NOTES "
+    "   INNER JOIN ZSFNOTETAG t ON nt.Z_10TAGS = t.Z_PK "
+    "WHERE "
+    "   n.ZARCHIVED=0 "
+    "   AND n.ZTRASHED=0 "
+    "   AND lower(t.ZTITLE) LIKE lower('%{0}%')")
 
 def search_notes_by_title(workflow, log, query):
     """
@@ -45,12 +56,21 @@ def search_notes_by_title(workflow, log, query):
     return run_query(workflow, log, sql_query)
 
 
-def search_notes_by_tag(workflow, log, query):
+def search_tags(workflow, log, query):
+    """
+    Searches for Bear tags by tag name.
+    """
+
+    sql_query = TAG_SEARCH.format(query)
+    return run_query(workflow, log, sql_query)
+
+
+def search_notes_by_tagname(workflow, log, query):
     """
     Searches for Bear notes by tag name.
     """
 
-    sql_query = NOTE_TAG_SEARCH.format(query)
+    sql_query = NOTE_TAGNAME_SEARCH.format(query)
     return run_query(workflow, log, sql_query)
 
 
