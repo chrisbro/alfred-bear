@@ -123,37 +123,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>concurrently</key>
-				<false/>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>script</key>
-				<string>orig_query={query}
-echo $orig_query
-if [[ $orig_query == ":t:"* ]]; then
-	new_query=${orig_query:3}
-	open "bear://x-callback-url/open-tag?name=$new_query"
-else
-	new_query=${orig_query:3}
-	open "bear://x-callback-url/open-note?id=$new_query"
-fi</string>
-				<key>scriptargtype</key>
-				<integer>0</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>type</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>34803D0C-B70E-4032-96FA-E0A5E179236A</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>alfredfiltersresults</key>
 				<false/>
 				<key>argumenttrimmode</key>
@@ -204,7 +173,15 @@ fi</string>
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>script</key>
-				<string>open "bear://x-callback-url/create?{query}"</string>
+				<string>orig_query={query}
+echo $orig_query
+if [[ $orig_query == ":t:"* ]]; then
+	new_query=${orig_query:3}
+	open "bear://x-callback-url/open-tag?name=$new_query"
+else
+	new_query=${orig_query:3}
+	open "bear://x-callback-url/open-note?id=$new_query"
+fi</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -215,7 +192,7 @@ fi</string>
 			<key>type</key>
 			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>B7C7DDC1-B797-4FF0-8AA0-0362C306C19A</string>
+			<string>34803D0C-B70E-4032-96FA-E0A5E179236A</string>
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
@@ -261,6 +238,29 @@ fi</string>
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
 			<string>74B5AEA1-6AFC-4867-A76D-0FD11694A60D</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>open "bear://x-callback-url/create?{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>B7C7DDC1-B797-4FF0-8AA0-0362C306C19A</string>
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
@@ -327,7 +327,7 @@ To install, download a released alfred-bear.alfredworkflow and double-click to o
 		</dict>
 	</dict>
 	<key>version</key>
-	<string>0.1.0</string>
+	<string>0.2.0</string>
 	<key>webaddress</key>
 	<string>https://github.com/chrisbro/alfred-bear</string>
 </dict>

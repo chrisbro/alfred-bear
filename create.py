@@ -58,13 +58,13 @@ def create_query_output(title, tags):
 
     query_string = ''
     if title:
-        query_string += 'title=' + quote(title)
-        query_string += '&text=' + quote(title)
+        query_string += 'title=' + quote(title.encode('utf-8'))
+        query_string += '&text=' + quote(title.encode('utf-8'))
 
     if tags:
         tags_string = ''
         for tag in tags:
-            tags_string += quote(tag) + ','
+            tags_string += quote(tag.encode('utf-8')) + ','
         query_string = strip_tags_from_string(tags, query_string)
         tags_string = tags_string[:-1]
         query_string += '&tags=' + tags_string
@@ -79,7 +79,7 @@ def strip_tags_from_string(tags, query):
     Yanks out all the hashtags from a string.
     """
     for tag in tags:
-        query = query.replace(quote('#' + tag), '')
+        query = query.replace(quote('#' + tag.encode('utf-8')), '')
         query = query.replace('#' + tag, '')
     return query
 

@@ -69,6 +69,7 @@ def execute_search_query(args):
     query = None
     if args.query:
         query = args.query[0]
+        query = query.encode('utf-8')
 
         if SINGLE_QUOTE in query:
             query = query.replace(SINGLE_QUOTE, ESC_SINGLE_QUOTE)

@@ -38,6 +38,7 @@ To install, download a [released alfred-bear workflow](https://github.com/chrisb
 ## Versions
 
 **0.2.0**
+* Now allows non-ASCII characters.
 * Searching by tag now displays not only tags that match the search query, but notes that match those tags as well.
 * Searching by tag now works with *or* without the '#' symbol in front of the tag.
 
