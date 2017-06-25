@@ -86,7 +86,8 @@ def execute_search_query(args):
                 LOGGER.debug(tag_result)
                 tag_arg = ':t:'+ tag_result[0]
                 LOGGER.debug(tag_arg)
-                WORKFLOW.add_item(title=tag_result[0], subtitle="Open tag", arg=tag_arg, valid=True)
+                WORKFLOW.add_item(title='#' + tag_result[0], subtitle="Open tag",
+                                  arg=tag_arg, valid=True)
             for note_result in note_results:
                 LOGGER.debug(note_results)
                 note_arg = ':n:' + note_result[0]

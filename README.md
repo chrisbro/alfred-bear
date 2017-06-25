@@ -37,6 +37,9 @@ To install, download a [released alfred-bear workflow](https://github.com/chrisb
 
 ## Versions
 
+**NEXT VERSION**
+* Added hashtag symbol to "Open Tag" list results to make it a little more obvious that it's a tag and not a note.
+
 **0.2.0**
 * Now allows non-ASCII characters.
 * Searching by tag now displays not only tags that match the search query, but notes that match those tags as well.
