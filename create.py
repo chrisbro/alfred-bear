@@ -33,8 +33,8 @@ def main(workflow):
 
     tags = extract_tags(query)
     tags_string = ', '.join(tags)
-    title_string = strip_tags_from_string(tags, title)
-    query_string = create_query_output(title, tags)
+    title_string = strip_tags_from_string(tags, query)
+    query_string = create_query_output(query, tags)
     LOGGER.debug(title_string)
     LOGGER.debug(query_string)
     if tags:
