@@ -47,6 +47,7 @@ NOTES_BY_TAG_TITLE = (
     "   AND n.ZTRASHED=0 "
     "   AND lower(t.ZTITLE) LIKE lower('%{0}%')")
 
+
 def search_notes_by_title(workflow, log, query):
     """
     Searches for bear notes by the title of the note.
