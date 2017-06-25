@@ -95,6 +95,7 @@ def run_query(workflow, log, sql):
     cursor.close()
     return results
 
+
 def find_bear_db(log):
     """
     Finds the Bear sqlite3 DB.

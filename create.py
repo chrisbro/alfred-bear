@@ -31,10 +31,6 @@ def main(workflow):
     query = workflow.args[0]
     LOGGER.debug(query)
 
-    title = None
-    tags = None
-
-    title = query
     tags = extract_tags(query)
     tags_string = ', '.join(tags)
     title_string = strip_tags_from_string(tags, title)
