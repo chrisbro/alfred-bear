@@ -21,7 +21,9 @@ NOTES_BY_TITLE = (
     "WHERE "
     "   ZARCHIVED=0 "
     "   AND ZTRASHED=0 "
-    "   AND lower(ZTITLE) LIKE lower('%{0}%')")
+    "   AND lower(ZTITLE) LIKE lower('%{0}%')"
+    "ORDER BY "
+    "   ZMODIFICATIONDATE DESC")
 
 TAGS_BY_TITLE = (
     "SELECT DISTINCT"
@@ -33,7 +35,9 @@ TAGS_BY_TITLE = (
     "WHERE "
     "   n.ZARCHIVED=0 "
     "   AND n.ZTRASHED=0 "
-    "   AND lower(t.ZTITLE) LIKE lower('%{0}%')")
+    "   AND lower(t.ZTITLE) LIKE lower('%{0}%')"
+    "ORDER BY "
+    "   t.ZMODIFICATIONDATE DESC")
 
 NOTES_BY_TAG_TITLE = (
     "SELECT DISTINCT"
@@ -45,7 +49,9 @@ NOTES_BY_TAG_TITLE = (
     "WHERE "
     "   n.ZARCHIVED=0 "
     "   AND n.ZTRASHED=0 "
-    "   AND lower(t.ZTITLE) LIKE lower('%{0}%')")
+    "   AND lower(t.ZTITLE) LIKE lower('%{0}%')"
+    "ORDER BY "
+    "   n.ZMODIFICATIONDATE DESC")
 
 
 def search_notes_by_title(workflow, log, query):
