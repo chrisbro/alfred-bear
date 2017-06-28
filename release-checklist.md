@@ -9,7 +9,7 @@
 ## In code:
 - Update version file
 - Copy plist over to git
-- Add release notes to README
+- Add release notes to README, update version # link
 - Tag final checkin with version # and notes
 
 ## Github:
