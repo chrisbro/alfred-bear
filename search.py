@@ -96,13 +96,20 @@ def execute_search_query(args):
 
     else:
         LOGGER.debug('Searching notes')
-        results = queries.search_notes_by_title(WORKFLOW, LOGGER, query)
-        if not results:
+        title_results = queries.search_notes_by_title(WORKFLOW, LOGGER, query)
+        text_results = queries.search_notes_by_text(WORKFLOW, LOGGER, query)
+        if not title_results and not text_results:
             WORKFLOW.add_item('No search results found.')
         else:
-            for result in results:
-                LOGGER.debug(results)
-                WORKFLOW.add_item(title=result[1], subtitle="Open note", arg=result[0], valid=True)
+            note_ids = []
+            for title_result in title_results:
+                LOGGER.debug(title_result)
+                WORKFLOW.add_item(title=title_result[1], subtitle="Open note", arg=title_result[0], valid=True)
+                note_ids.append(title_result[0])
+            for text_result in text_results:
+                if text_result[0] not in note_ids:
+                    LOGGER.debug(text_result)
+                    WORKFLOW.add_item(title=text_result[1], subtitle="Open note", arg=text_result[0], valid=True)
 
 
 if __name__ == '__main__':

@@ -25,6 +25,19 @@ NOTES_BY_TITLE = (
     "ORDER BY "
     "   ZMODIFICATIONDATE DESC")
 
+NOTES_BY_TEXT = (
+    "SELECT DISTINCT"
+    "   ZUNIQUEIDENTIFIER, ZTITLE "
+    "FROM "
+    "   ZSFNOTE "
+    "WHERE "
+    "   ZARCHIVED=0 "
+    "   AND ZTRASHED=0 "
+    "   AND lower(ZTEXT) LIKE lower('%{0}%')"
+    "ORDER BY "
+    "   ZMODIFICATIONDATE DESC"
+)
+
 TAGS_BY_TITLE = (
     "SELECT DISTINCT"
     "   t.ZTITLE "
@@ -56,10 +69,19 @@ NOTES_BY_TAG_TITLE = (
 
 def search_notes_by_title(workflow, log, query):
     """
-    Searches for bear notes by the title of the note.
+    Searches for Bear notes by the title of the note.
     """
 
     sql_query = NOTES_BY_TITLE.format(query)
+    return run_query(workflow, log, sql_query)
+
+
+def search_notes_by_text(workflow, log, query):
+    """
+    Searches for Bear notes by the content of the note.
+    """
+
+    sql_query = NOTES_BY_TEXT.format(query)
     return run_query(workflow, log, sql_query)
 
 
