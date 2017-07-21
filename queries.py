@@ -8,9 +8,12 @@ Defines queries and execution functions for calling the Bear sqlite DB.
 import sqlite3
 import os
 
-DB_LOCATION = (
+DB_LOCATION_OLD = (
     "/Library/Containers/net.shinyfrog.bear/Data/Library/Application Support/"
     "net.shinyfrog.bear/database.sqlite")
+DB_LOCATION = (
+    "/Library/Containers/net.shinyfrog.bear/Data/Documents/Application Data/"
+    "database.sqlite")
 DB_KEY = 'db_path'
 
 NOTES_BY_TITLE = (
@@ -109,6 +112,10 @@ def run_query(workflow, log, sql):
     """
 
     db_path = workflow.stored_data(DB_KEY)
+    home = os.path.expanduser("~")
+    if db_path and db_path == "{0}{1}".format(home, DB_LOCATION_OLD):
+        db_path = find_bear_db(log)
+        workflow.store_data(DB_KEY, db_path)
     if not db_path:
         db_path = find_bear_db(log)
         workflow.store_data(DB_KEY, db_path)
@@ -136,6 +143,10 @@ def find_bear_db(log):
     if not os.path.isfile(db_file):
         log.debug(
             "Bear db not found at {0}".format(db_file))
+        db_file = "{0}{1}".format(home, DB_LOCATION_OLD)
+        if not os.path.isfile(db_file):
+            log.debug(
+                "Bear db not found at {0}".format(db_file))
 
     log.debug(db_file)
     return db_file
