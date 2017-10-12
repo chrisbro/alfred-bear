@@ -8,6 +8,7 @@ Note creation script for alfred-bear workflow.
 import sys
 from urllib import quote
 from workflow import Workflow, ICON_SYNC
+import datetime
 
 LOGGER = None
 
@@ -29,6 +30,13 @@ def main(workflow):
 
     LOGGER.debug('Started create workflow')
     query = workflow.args[0]
+    # Add til today tag query
+    if len(workflow.args) > 1:
+        if workflow.args[1] == 'tag_now':
+            now = datetime.datetime.now()
+            now_string = now.strftime(' #%Y/%m/%d')
+            query += now_string
+
     LOGGER.debug(query)
 
     tags = extract_tags(query)
