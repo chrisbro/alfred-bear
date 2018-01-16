@@ -33,16 +33,7 @@ def separateTags(query):
         else:
             textList.append(i)
     text = ' '.join(textList)
-    return text, tags
-
-def addToWorkflow(workflow, results):
-    for r in results:
-        LOGGER.debug(r)
-        workflow.add_item(
-            title=r[1], 
-            subtitle="Open note", 
-            arg=r[0], 
-            valid=True)
+    return text.strip(), tags
 
 def addUnique(results, newResults):
     for r in newResults:
@@ -61,7 +52,9 @@ def searchQuery(workflow, LOGGER, text, tags):
                 workflow, LOGGER, tags, text)
         addUnique(results, titleResults)
         addUnique(results, textResults)
-        addToWorkflow(workflow, results)
+        core.addToWorkflow(workflow, LOGGER, results)
+    elif text == '':
+        core.addRecent(workflow, LOGGER)
     else:
         titleResults = queries.search_notes_by_title(
             workflow, LOGGER, text)
@@ -70,7 +63,7 @@ def searchQuery(workflow, LOGGER, text, tags):
         results = []
         addUnique(results, titleResults)
         addUnique(results, textResults)
-        addToWorkflow(workflow, results)
+        core.addToWorkflow(workflow, LOGGER, results)
 
 def main(workflow):
     """
@@ -84,10 +77,10 @@ def main(workflow):
                           icon=ICON_SYNC)
 
     LOGGER.debug('Started search workflow')
-    args = parse_args()
 
-    if args.query:
-        query = args.query[0]
+    LOGGER.debug('sys.argv: {!r}'.format(sys.argv))
+    if len(sys.argv) > 1:
+        query = sys.argv[1].strip()
         core.autocompleteTags(workflow, LOGGER, query)
         text, tags = separateTags(query)
         LOGGER.debug('tags: {!r}'.format(tags))
@@ -95,22 +88,6 @@ def main(workflow):
         searchQuery(workflow, LOGGER, text, tags)
 
     workflow.send_feedback()
-
-def parse_args():
-    """
-    Parses out the arguments sent to the script in the Alfred workflow.
-    """
-
-    parser = argparse.ArgumentParser(description="Search Bear Notes")
-    parser.add_argument('-t', '--type', default=TITLE,
-                        choices=[TITLE, TAGS],
-                        type=str, help='What to search for: t(i)tle, or t(a)gs?')
-    parser.add_argument('query', type=unicode,
-                        nargs=argparse.REMAINDER, help='query string')
-
-    LOGGER.debug(WORKFLOW.args)
-    args = parser.parse_args(WORKFLOW.args)
-    return args
 
 if __name__ == '__main__':
     WORKFLOW = Workflow(update_settings=UPDATE_SETTINGS)

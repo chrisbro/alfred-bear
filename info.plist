@@ -42,32 +42,6 @@
 				<false/>
 			</dict>
 		</array>
-		<key>A10CF1DB-F3D4-4248-A45A-0954FE2C61E7</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>34803D0C-B70E-4032-96FA-E0A5E179236A</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
-		<key>EF8D19D3-F95E-4955-8BC1-A29B420B05B2</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>9C99DC50-7088-4463-912E-65308ED979CC</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
 	</dict>
 	<key>createdby</key>
 	<string>Chris Brown</string>
@@ -82,29 +56,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>concurrently</key>
-				<false/>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>script</key>
-				<string>open "bear://x-callback-url/open-note?id={query}&amp;show_window=yes&amp;new_window=yes"</string>
-				<key>scriptargtype</key>
-				<integer>0</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>type</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>9C99DC50-7088-4463-912E-65308ED979CC</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>alfredfiltersresults</key>
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
@@ -112,7 +63,7 @@
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
-				<integer>0</integer>
+				<integer>1</integer>
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>keyword</key>
@@ -152,47 +103,23 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>alfredfiltersresults</key>
+				<key>concurrently</key>
 				<false/>
-				<key>alfredfiltersresultsmatchmode</key>
-				<integer>0</integer>
-				<key>argumenttrimmode</key>
-				<integer>0</integer>
-				<key>argumenttype</key>
-				<integer>2</integer>
 				<key>escaping</key>
 				<integer>102</integer>
-				<key>keyword</key>
-				<string>bls</string>
-				<key>queuedelaycustom</key>
-				<integer>3</integer>
-				<key>queuedelayimmediatelyinitially</key>
-				<true/>
-				<key>queuedelaymode</key>
-				<integer>0</integer>
-				<key>queuemode</key>
-				<integer>1</integer>
-				<key>runningsubtext</key>
-				<string>Searching...</string>
 				<key>script</key>
-				<string>/usr/bin/python list.py</string>
+				<string>open "bear://x-callback-url/open-note?id={query}&amp;show_window=yes&amp;new_window=yes"</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
 				<string></string>
-				<key>subtext</key>
-				<string></string>
-				<key>title</key>
-				<string>List Bear Notes</string>
 				<key>type</key>
 				<integer>0</integer>
-				<key>withspace</key>
-				<false/>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
+			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>EF8D19D3-F95E-4955-8BC1-A29B420B05B2</string>
+			<string>9C99DC50-7088-4463-912E-65308ED979CC</string>
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
@@ -204,15 +131,7 @@
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>script</key>
-				<string>orig_query={query}
-echo $orig_query
-if [[ $orig_query == ":t:"* ]]; then
-	new_query=${orig_query:3}
-	open "bear://x-callback-url/open-tag?name=$new_query"
-else
-	new_query=${orig_query:3}
-	open "bear://x-callback-url/open-note?id=$new_query"
-fi</string>
+				<string>open "bear://x-callback-url/create?{query}&amp;show_window=no"</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -223,54 +142,7 @@ fi</string>
 			<key>type</key>
 			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>34803D0C-B70E-4032-96FA-E0A5E179236A</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>alfredfiltersresults</key>
-				<false/>
-				<key>alfredfiltersresultsmatchmode</key>
-				<integer>0</integer>
-				<key>argumenttrimmode</key>
-				<integer>0</integer>
-				<key>argumenttype</key>
-				<integer>0</integer>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>keyword</key>
-				<string>bst</string>
-				<key>queuedelaycustom</key>
-				<integer>3</integer>
-				<key>queuedelayimmediatelyinitially</key>
-				<true/>
-				<key>queuedelaymode</key>
-				<integer>0</integer>
-				<key>queuemode</key>
-				<integer>1</integer>
-				<key>runningsubtext</key>
-				<string>Searching...</string>
-				<key>script</key>
-				<string>/usr/bin/python search.py -t a "{query}"</string>
-				<key>scriptargtype</key>
-				<integer>0</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>subtext</key>
-				<string></string>
-				<key>title</key>
-				<string>Search Bear Notes by Tag</string>
-				<key>type</key>
-				<integer>0</integer>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
-			<key>uid</key>
-			<string>A10CF1DB-F3D4-4248-A45A-0954FE2C61E7</string>
+			<string>8ADA234F-D806-45F7-AFC5-814BD9A693F1</string>
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
@@ -329,29 +201,6 @@ fi</string>
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>script</key>
-				<string>open "bear://x-callback-url/create?{query}&amp;show_window=no"</string>
-				<key>scriptargtype</key>
-				<integer>0</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>type</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>8ADA234F-D806-45F7-AFC5-814BD9A693F1</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>concurrently</key>
-				<false/>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>script</key>
 				<string>open "bear://x-callback-url/create?{query}&amp;show_window=yes&amp;new_window=yes"</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
@@ -393,26 +242,19 @@ To install, download a released alfred-bear.alfredworkflow and double-click to o
 			<key>ypos</key>
 			<integer>50</integer>
 		</dict>
-		<key>34803D0C-B70E-4032-96FA-E0A5E179236A</key>
-		<dict>
-			<key>xpos</key>
-			<integer>520</integer>
-			<key>ypos</key>
-			<integer>320</integer>
-		</dict>
 		<key>74B5AEA1-6AFC-4867-A76D-0FD11694A60D</key>
 		<dict>
 			<key>xpos</key>
 			<integer>280</integer>
 			<key>ypos</key>
-			<integer>450</integer>
+			<integer>190</integer>
 		</dict>
 		<key>8ADA234F-D806-45F7-AFC5-814BD9A693F1</key>
 		<dict>
 			<key>xpos</key>
 			<integer>520</integer>
 			<key>ypos</key>
-			<integer>450</integer>
+			<integer>190</integer>
 		</dict>
 		<key>9C99DC50-7088-4463-912E-65308ED979CC</key>
 		<dict>
@@ -421,26 +263,12 @@ To install, download a released alfred-bear.alfredworkflow and double-click to o
 			<key>ypos</key>
 			<integer>50</integer>
 		</dict>
-		<key>A10CF1DB-F3D4-4248-A45A-0954FE2C61E7</key>
-		<dict>
-			<key>xpos</key>
-			<integer>280</integer>
-			<key>ypos</key>
-			<integer>320</integer>
-		</dict>
 		<key>B7C7DDC1-B797-4FF0-8AA0-0362C306C19A</key>
 		<dict>
 			<key>xpos</key>
 			<integer>520</integer>
 			<key>ypos</key>
-			<integer>580</integer>
-		</dict>
-		<key>EF8D19D3-F95E-4955-8BC1-A29B420B05B2</key>
-		<dict>
-			<key>xpos</key>
-			<integer>280</integer>
-			<key>ypos</key>
-			<integer>180</integer>
+			<integer>320</integer>
 		</dict>
 	</dict>
 	<key>version</key>
