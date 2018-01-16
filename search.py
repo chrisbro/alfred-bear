@@ -8,6 +8,7 @@ Main search script for alfred-bear workflow.
 import sys
 import argparse
 import queries
+import core
 from workflow import Workflow, ICON_SYNC
 
 TITLE = "i"
@@ -22,6 +23,54 @@ LOGGER = None
 UPDATE_SETTINGS = {'github_slug': 'chrisbro/alfred-bear'}
 SHOW_UPDATES = True
 
+def separateTags(query):
+    textList = []
+    tags = set([])
+    items = query.split()
+    for i in items:
+        if i.startswith('#'):
+            tags.add(i[1:])
+        else:
+            textList.append(i)
+    text = ' '.join(textList)
+    return text, tags
+
+def addToWorkflow(workflow, results):
+    for r in results:
+        LOGGER.debug(r)
+        workflow.add_item(
+            title=r[1], 
+            subtitle="Open note", 
+            arg=r[0], 
+            valid=True)
+
+def addUnique(results, newResults):
+    for r in newResults:
+        if r not in results:
+            results.append(r)
+    return results
+
+def searchQuery(workflow, LOGGER, text, tags):
+    if len(tags) != 0:
+        LOGGER.debug("Multi Tag Search")
+        results = []
+        tags = list(tags)
+        titleResults = queries.search_notes_by_multitag_and_title(
+                workflow, LOGGER, tags, text)
+        textResults = queries.search_notes_by_multitag_and_text(
+                workflow, LOGGER, tags, text)
+        addUnique(results, titleResults)
+        addUnique(results, textResults)
+        addToWorkflow(workflow, results)
+    else:
+        titleResults = queries.search_notes_by_title(
+            workflow, LOGGER, text)
+        textResults =  queries.search_notes_by_text(
+            workflow, LOGGER, text)
+        results = []
+        addUnique(results, titleResults)
+        addUnique(results, textResults)
+        addToWorkflow(workflow, results)
 
 def main(workflow):
     """
@@ -39,11 +88,13 @@ def main(workflow):
 
     if args.query:
         query = args.query[0]
-        LOGGER.debug("Searching notes for %s", format(query))
-        execute_search_query(args)
+        core.autocompleteTags(workflow, LOGGER, query)
+        text, tags = separateTags(query)
+        LOGGER.debug('tags: {!r}'.format(tags))
+        LOGGER.debug('text: {!r}'.format(text))
+        searchQuery(workflow, LOGGER, text, tags)
 
     workflow.send_feedback()
-
 
 def parse_args():
     """
@@ -60,57 +111,6 @@ def parse_args():
     LOGGER.debug(WORKFLOW.args)
     args = parser.parse_args(WORKFLOW.args)
     return args
-
-
-def execute_search_query(args):
-    """
-    Decides what search to run based on args that were passed in and executes the search.
-    """
-    query = None
-    if args.query:
-        query = args.query[0]
-        query = query.encode('utf-8')
-
-        if SINGLE_QUOTE in query:
-            query = query.replace(SINGLE_QUOTE, ESC_SINGLE_QUOTE)
-
-    if args.type == TAGS:
-        LOGGER.debug('Searching tags')
-        query = query.replace('#', '')
-        tag_results = queries.search_tags_by_title(WORKFLOW, LOGGER, query)
-        note_results = queries.search_notes_by_tag_title(WORKFLOW, LOGGER, query)
-        if not tag_results:
-            WORKFLOW.add_item('No search results found.')
-        else:
-            for tag_result in tag_results:
-                LOGGER.debug(tag_result)
-                tag_arg = ':t:' + tag_result[0]
-                LOGGER.debug(tag_arg)
-                WORKFLOW.add_item(title='#' + tag_result[0], subtitle="Open tag",
-                                  arg=tag_arg, valid=True)
-            for note_result in note_results:
-                LOGGER.debug(note_results)
-                note_arg = ':n:' + note_result[0]
-                WORKFLOW.add_item(title=note_result[1], subtitle="Open note",
-                                  arg=note_arg, valid=True)
-
-    else:
-        LOGGER.debug('Searching notes')
-        title_results = queries.search_notes_by_title(WORKFLOW, LOGGER, query)
-        text_results = queries.search_notes_by_text(WORKFLOW, LOGGER, query)
-        if not title_results and not text_results:
-            WORKFLOW.add_item('No search results found.')
-        else:
-            note_ids = []
-            for title_result in title_results:
-                LOGGER.debug(title_result)
-                WORKFLOW.add_item(title=title_result[1], subtitle="Open note", arg=title_result[0], valid=True)
-                note_ids.append(title_result[0])
-            for text_result in text_results:
-                if text_result[0] not in note_ids:
-                    LOGGER.debug(text_result)
-                    WORKFLOW.add_item(title=text_result[1], subtitle="Open note", arg=text_result[0], valid=True)
-
 
 if __name__ == '__main__':
     WORKFLOW = Workflow(update_settings=UPDATE_SETTINGS)
