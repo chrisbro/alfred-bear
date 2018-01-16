@@ -18,7 +18,6 @@ LOGGER = None
 UPDATE_SETTINGS = {'github_slug': 'chrisbro/alfred-bear'}
 SHOW_UPDATES = True
 
-
 def main(workflow):
     """
     I'm just here so I don't get fined by pylint
@@ -37,47 +36,33 @@ def main(workflow):
     core.autocompleteTags(workflow, LOGGER, query)
 
     # construct result
-    tags = extract_tags(query)
+    title, tags = core.separateTags(query)
+
     tags_string = ', '.join(tags)
-    title_string = strip_tags_from_string(tags, query)
-    query_string = create_query_output(query, tags)
-    LOGGER.debug(title_string)
-    LOGGER.debug(query_string)
+    query_string = constructCreateQuery(title, tags)
+
+    LOGGER.debug('title: {!r}'.format(title))
+    LOGGER.debug('query_string: {!r}'.format(query_string))
     if tags:
-        workflow.add_item(title="Create note with title '{}' ".format(title_string),
+        workflow.add_item(title="Create note with title '{}' ".format(title),
                           subtitle='Tags: ' + tags_string, arg=query_string, valid=True)
     else:
-        workflow.add_item(title="Create note with title '{}'".format(title_string),
+        workflow.add_item(title="Create note with title '{}'".format(title),
                           arg=query_string, valid=True)
 
     workflow.send_feedback()
 
-
-def create_query_output(title, tags):
-    """
-    Generates what query parameters to pass to the Alfred callback step.
-    """
-
-    # remove tags
-    items = title.split()
-    titleList = []
-    for i in items:
-        if not i.startswith('#'):
-            titleList.append(i)
-    titleStr = ' '.join(titleList)
-    LOGGER.debug('titleStr {!r}'.format(titleStr))
-
+def constructCreateQuery(title, tags):
     query_string = ''
-    if titleStr:
-        query_string += 'title=' + quote(titleStr.encode('utf-8'))
-
+    if title:
+        query_string += 'title=' + quote(title.encode('utf-8'))
     if tags:
         tags_string = ''
         for tag in tags:
             tags_string += quote(tag.encode('utf-8')) + ','
         tags_string = tags_string[:-1]
         query_string += '&tags=' + tags_string
-
+    
     # use clipboard as contents if it has text
     clip_string = clipboard.paste()
     if clip_string != '':
@@ -85,30 +70,8 @@ def create_query_output(title, tags):
     else:
         # other wise empty
         query_string += '&text=' + quote(''.encode('utf-8'))
-
-    # don't open the main window
-
     LOGGER.debug('query_string: {!r}'.format(query_string))
-
     return query_string
-
-
-def strip_tags_from_string(tags, query):
-    """
-    Yanks out all the hashtags from a string.
-    """
-    for tag in tags:
-        query = query.replace(quote('#' + tag.encode('utf-8')), '')
-        query = query.replace('#' + tag, '')
-    return query
-
-
-def extract_tags(query):
-    """
-    Gets all the tags from the query.
-    """
-    return set(part[1:] for part in query.split() if part.startswith('#'))
-
 
 if __name__ == '__main__':
     WORKFLOW = Workflow(update_settings=UPDATE_SETTINGS)

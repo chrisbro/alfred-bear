@@ -7,6 +7,18 @@ Core shared functions
 
 import queries
 
+def separateTags(query):
+    textList = []
+    tags = set([])
+    items = query.split()
+    for i in items:
+        if i.startswith('#'):
+            tags.add(i[1:])
+        else:
+            textList.append(i)
+    text = ' '.join(textList)
+    return text.strip(), tags
+
 def autocompleteTags(workflow, LOGGER, query):
     """
     populates workflow with autocompletes for tags
@@ -14,6 +26,7 @@ def autocompleteTags(workflow, LOGGER, query):
     qItems = query.split()
     if len(qItems) > 0:
         last = qItems[-1]
+        LOGGER.debug(query)
         if last.startswith('#'):
             tag_results = queries.search_tags_by_title(workflow, LOGGER, last[1:])
             for t in tag_results:

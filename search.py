@@ -23,18 +23,6 @@ LOGGER = None
 UPDATE_SETTINGS = {'github_slug': 'chrisbro/alfred-bear'}
 SHOW_UPDATES = True
 
-def separateTags(query):
-    textList = []
-    tags = set([])
-    items = query.split()
-    for i in items:
-        if i.startswith('#'):
-            tags.add(i[1:])
-        else:
-            textList.append(i)
-    text = ' '.join(textList)
-    return text.strip(), tags
-
 def addUnique(results, newResults):
     for r in newResults:
         if r not in results:
@@ -82,7 +70,7 @@ def main(workflow):
     if len(sys.argv) > 1:
         query = sys.argv[1].strip()
         core.autocompleteTags(workflow, LOGGER, query)
-        text, tags = separateTags(query)
+        text, tags = core.separateTags(query)
         LOGGER.debug('tags: {!r}'.format(tags))
         LOGGER.debug('text: {!r}'.format(text))
         searchQuery(workflow, LOGGER, text, tags)
