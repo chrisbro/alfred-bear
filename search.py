@@ -41,7 +41,7 @@ def searchQuery(workflow, LOGGER, text, tags):
         addUnique(results, titleResults)
         addUnique(results, textResults)
         core.addToWorkflow(workflow, LOGGER, results)
-    elif text == '':
+    elif text.strip() == '':
         core.addRecent(workflow, LOGGER)
     else:
         titleResults = queries.search_notes_by_title(
