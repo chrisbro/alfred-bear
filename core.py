@@ -25,7 +25,7 @@ def autocompleteTags(workflow, LOGGER, query):
                 workflow.add_item(
                     title=tag, 
                     autocomplete=complete, 
-                    valid=True)
+                    valid=False)
 
 def addToWorkflow(workflow, LOGGER, results):
     for r in results:
