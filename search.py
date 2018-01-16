@@ -68,7 +68,7 @@ def main(workflow):
 
     LOGGER.debug('sys.argv: {!r}'.format(sys.argv))
     if len(sys.argv) > 1:
-        query = sys.argv[1].strip()
+        query = sys.argv[1]
         core.autocompleteTags(workflow, LOGGER, query)
         text, tags = core.separateTags(query)
         LOGGER.debug('tags: {!r}'.format(tags))

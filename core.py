@@ -23,10 +23,11 @@ def autocompleteTags(workflow, LOGGER, query):
     """
     populates workflow with autocompletes for tags
     """
+    LOGGER.debug('autocompleteTags >> query: {!r}'.format(query))
+    
     qItems = query.split()
-    if len(qItems) > 0:
+    if len(qItems) > 0 and not query.endswith(' '):
         last = qItems[-1]
-        LOGGER.debug(query)
         if last.startswith('#'):
             tag_results = queries.search_tags_by_title(workflow, LOGGER, last[1:])
             for t in tag_results:
