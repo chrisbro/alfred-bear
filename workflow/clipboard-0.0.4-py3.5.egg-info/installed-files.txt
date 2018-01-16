@@ -1,0 +1,7 @@
+../clipboard.py
+../__pycache__/clipboard.cpython-35.pyc
+PKG-INFO
+SOURCES.txt
+requires.txt
+top_level.txt
+dependency_links.txt

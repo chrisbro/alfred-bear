@@ -16,6 +16,18 @@ DB_LOCATION = (
     "database.sqlite")
 DB_KEY = 'db_path'
 
+RECENT_NOTES = (
+    "SELECT DISTINCT"
+    "   ZUNIQUEIDENTIFIER, ZTITLE "
+    "FROM "
+    "   ZSFNOTE "
+    "WHERE "
+    "   ZARCHIVED=0 "
+    "   AND ZTRASHED=0 "
+    "ORDER BY "
+    "   ZMODIFICATIONDATE DESC "
+    "LIMIT 25")
+
 NOTES_BY_TITLE = (
     "SELECT DISTINCT"
     "   ZUNIQUEIDENTIFIER, ZTITLE "
@@ -26,7 +38,8 @@ NOTES_BY_TITLE = (
     "   AND ZTRASHED=0 "
     "   AND lower(ZTITLE) LIKE lower('%{0}%')"
     "ORDER BY "
-    "   ZMODIFICATIONDATE DESC")
+    "   ZMODIFICATIONDATE DESC "
+    "LIMIT 25")
 
 NOTES_BY_TEXT = (
     "SELECT DISTINCT"
@@ -38,8 +51,8 @@ NOTES_BY_TEXT = (
     "   AND ZTRASHED=0 "
     "   AND lower(ZTEXT) LIKE lower('%{0}%')"
     "ORDER BY "
-    "   ZMODIFICATIONDATE DESC"
-)
+    "   ZMODIFICATIONDATE DESC "
+    "LIMIT 25")
 
 TAGS_BY_TITLE = (
     "SELECT DISTINCT"
@@ -53,7 +66,8 @@ TAGS_BY_TITLE = (
     "   AND n.ZTRASHED=0 "
     "   AND lower(t.ZTITLE) LIKE lower('%{0}%')"
     "ORDER BY "
-    "   t.ZMODIFICATIONDATE DESC")
+    "   t.ZMODIFICATIONDATE DESC "
+    "LIMIT 25")
 
 NOTES_BY_TAG_TITLE = (
     "SELECT DISTINCT"
@@ -67,8 +81,121 @@ NOTES_BY_TAG_TITLE = (
     "   AND n.ZTRASHED=0 "
     "   AND lower(t.ZTITLE) LIKE lower('%{0}%')"
     "ORDER BY "
-    "   n.ZMODIFICATIONDATE DESC")
+    "   n.ZMODIFICATIONDATE DESC "
+    "LIMIT 25")
 
+NOTES_BY_TAG_AND_TITLE = (
+    "SELECT DISTINCT"
+    "   note.ZUNIQUEIDENTIFIER, note.ZTITLE "
+    "FROM "
+    "   ZSFNOTE note "
+    "   INNER JOIN Z_5TAGS nTag ON note.Z_PK = nTag.Z_5NOTES "
+    "   INNER JOIN ZSFNOTETAG tag ON nTag.Z_10TAGS = tag.Z_PK "
+    "WHERE "
+    "   note.ZARCHIVED=0 "
+    "   AND note.ZTRASHED=0 "
+    "   AND lower(tag.ZTITLE) LIKE lower('%{0}%')"
+    "   AND lower(note.ZTITLE) LIKE lower('%{1}%')"
+    "ORDER BY "
+    "   note.ZMODIFICATIONDATE DESC "
+    "LIMIT 25")
+
+NOTES_BY_TAG_AND_TEXT = (
+    "SELECT DISTINCT"
+    "   note.ZUNIQUEIDENTIFIER, note.ZTITLE "
+    "FROM "
+    "   ZSFNOTE note "
+    "   INNER JOIN Z_5TAGS nTag ON note.Z_PK = nTag.Z_5NOTES "
+    "   INNER JOIN ZSFNOTETAG tag ON nTag.Z_10TAGS = tag.Z_PK "
+    "WHERE "
+    "   note.ZARCHIVED=0 "
+    "   AND note.ZTRASHED=0 "
+    "   AND lower(tag.ZTITLE) LIKE lower('%{0}%')"
+    "   AND lower(note.ZTEXT) LIKE lower('%{1}%')"
+    "ORDER BY "
+    "   note.ZMODIFICATIONDATE DESC "
+    "LIMIT 25")
+
+NOTES_BY_2TAG_AND_TEXT = (
+    "SELECT DISTINCT"
+    "   note.ZUNIQUEIDENTIFIER, note.ZTITLE "
+    "FROM "
+    "   ZSFNOTE note "
+    "   INNER JOIN Z_5TAGS nTag ON note.Z_PK = nTag.Z_5NOTES "
+    "   INNER JOIN ZSFNOTETAG tag ON nTag.Z_10TAGS = tag.Z_PK "
+    "WHERE "
+    "   note.ZARCHIVED=0 "
+    "   AND note.ZTRASHED=0 "
+    "   AND (lower(tag.ZTITLE) = lower('{0}')"
+    "   OR lower(tag.ZTITLE) = lower('{1}'))"
+    "   AND lower(note.ZTEXT) LIKE lower('%{2}%')"
+    "GROUP BY note.ZUNIQUEIDENTIFIER "
+    "HAVING COUNT(*) >= 2 "
+    "ORDER BY "
+    "   note.ZMODIFICATIONDATE DESC "
+    "LIMIT 25")
+
+NOTES_BY_MULTI_TAG_AND_X = (
+    "SELECT DISTINCT"
+    "   note.ZUNIQUEIDENTIFIER, note.ZTITLE "
+    "FROM "
+    "   ZSFNOTE note "
+    "   INNER JOIN Z_5TAGS nTag ON note.Z_PK = nTag.Z_5NOTES "
+    "   INNER JOIN ZSFNOTETAG tag ON nTag.Z_10TAGS = tag.Z_PK "
+    "WHERE "
+    "   note.ZARCHIVED=0 "
+    "   AND note.ZTRASHED=0 "
+    "   AND ({0})"
+    "   AND  {1} "
+    "GROUP BY note.ZUNIQUEIDENTIFIER "
+    "HAVING COUNT(*) >= {2} "
+    "ORDER BY "
+    "   note.ZMODIFICATIONDATE DESC "
+    "LIMIT 25")
+
+def buildMultiTagAndTitle(tags, text):
+    tagWhereList = []
+    for t in tags:
+        s = "lower(tag.ZTITLE) = lower('{}')".format(t)
+        tagWhereList.append(s)
+    tagWhere = ' OR '.join(tagWhereList)
+    titleWhere = "lower(note.ZTITLE) LIKE lower('%{}%')".format(text)
+    tagCount = len(tags)
+    sql_query = NOTES_BY_MULTI_TAG_AND_X.format(tagWhere, titleWhere, tagCount)
+    return sql_query
+
+def search_notes_by_multitag_and_title(workflow, log, tags, text):
+    """
+    Searches for Bear notes by multi-tag name and title.
+    """
+    sql_query = buildMultiTagAndTitle(tags, text)
+    return run_query(workflow, log, sql_query)    
+
+def buildMultiTagAndText(tags, text):
+    tagWhereList = []
+    for t in tags:
+        s = "lower(tag.ZTITLE) = lower('{}')".format(t)
+        tagWhereList.append(s)
+    tagWhere = ' OR '.join(tagWhereList)
+    textWhere = "lower(note.ZTEXT) LIKE lower('%{}%')".format(text)
+    tagCount = len(tags)
+    sql_query = NOTES_BY_MULTI_TAG_AND_X.format(tagWhere, textWhere, tagCount)
+    return sql_query
+
+def search_notes_by_multitag_and_text(workflow, log, tags, text):
+    """
+    Searches for Bear notes by multi-tag name and title.
+    """
+    sql_query = buildMultiTagAndText(tags, text)
+    return run_query(workflow, log, sql_query)    
+
+def list_recent(workflow, log):
+    """
+    Searches for Bear notes by the title of the note.
+    """
+
+    sql_query = RECENT_NOTES
+    return run_query(workflow, log, sql_query)
 
 def search_notes_by_title(workflow, log, query):
     """
@@ -105,6 +232,27 @@ def search_notes_by_tag_title(workflow, log, query):
     sql_query = NOTES_BY_TAG_TITLE.format(query)
     return run_query(workflow, log, sql_query)
 
+def search_notes_by_tag_and_title(workflow, log, tag, title):
+    """
+    Searches for Bear notes by tag name and title.
+    """
+    sql_query = NOTES_BY_TAG_AND_TITLE.format(tag, title)
+    return run_query(workflow, log, sql_query)    
+
+def search_notes_by_tag_and_text(workflow, log, tag, text):
+    """
+    Searches for Bear notes by tag name and text.
+    """
+    sql_query = NOTES_BY_TAG_AND_TEXT.format(tag, text)
+    return run_query(workflow, log, sql_query)    
+
+def search_notes_by_2tag_and_text(workflow, log, tag1, tag2, text):
+    """
+    Searches for Bear notes by tag name and text.
+    """
+    sql_query = NOTES_BY_2TAG_AND_TEXT.format(tag1, tag2, text)
+    return run_query(workflow, log, sql_query)    
+
 
 def run_query(workflow, log, sql):
     """
@@ -130,7 +278,6 @@ def run_query(workflow, log, sql):
     log.debug("Found {0} results".format(len(results)))
     cursor.close()
     return results
-
 
 def find_bear_db(log):
     """
