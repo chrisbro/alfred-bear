@@ -1,0 +1,15 @@
+MANIFEST.in
+setup.cfg
+setup.py
+docs/Makefile
+docs/conf.py
+docs/index.rst
+docs/introduction.rst
+docs/make.bat
+pyperclip/__init__.py
+pyperclip.egg-info/PKG-INFO
+pyperclip.egg-info/SOURCES.txt
+pyperclip.egg-info/dependency_links.txt
+pyperclip.egg-info/top_level.txt
+tests/test_copy_paste.py
+tests/test_single.py

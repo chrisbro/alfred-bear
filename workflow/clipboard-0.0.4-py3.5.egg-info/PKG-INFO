@@ -1,0 +1,39 @@
+Metadata-Version: 1.1
+Name: clipboard
+Version: 0.0.4
+Summary:  A cross platform clipboard operation library of Python. Works for Windows, Mac and Linux.
+Home-page: https://github.com/terryyin/clipboard
+Author: Terry Yin
+Author-email: terry@odd-e.com
+License: MIT
+Download-URL: https://pypi.python.org/clipboard/
+Description: clipboard
+        =========
+        
+        A cross platform clipboard operation library of Python. Works for Windows, Mac and Linux.
+        
+        Well, as I was trying to implement this, I realize that everything is included in pyperclip already: https://pypi.python.org/pypi/pyperclip/
+        
+        But anyway, `clipboard` is a better name. You are free to choose:-) I might add more features to it.
+        
+        Usage:
+        
+        ::
+        
+           import clipboard
+           clipboard.copy("abc")  # now the clipboard content will be string "abc"
+           text = clipboard.paste()  # text will have the content of clipboard
+        
+Platform: any
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: License :: Freeware
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Topic :: Software Development :: Quality Assurance
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3.2
+Classifier: Programming Language :: Python :: 3.3

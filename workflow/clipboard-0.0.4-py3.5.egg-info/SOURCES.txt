@@ -1,0 +1,9 @@
+README.rst
+clipboard.py
+setup.cfg
+setup.py
+clipboard.egg-info/PKG-INFO
+clipboard.egg-info/SOURCES.txt
+clipboard.egg-info/dependency_links.txt
+clipboard.egg-info/requires.txt
+clipboard.egg-info/top_level.txt
