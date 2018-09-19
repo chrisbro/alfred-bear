@@ -59,27 +59,10 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>browser</key>
-				<string></string>
-				<key>spaces</key>
-				<string></string>
-				<key>url</key>
-				<string>bear://x-callback-url/open-note?id={query}</string>
-				<key>utf8</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.openurl</string>
-			<key>uid</key>
-			<string>A5A16924-B144-4D1A-8E47-FBA4467F58A7</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>alfredfiltersresults</key>
 				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
@@ -123,8 +106,60 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>browser</key>
+				<string></string>
+				<key>spaces</key>
+				<string></string>
+				<key>url</key>
+				<string>bear://x-callback-url/open-note?id={query}</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>A5A16924-B144-4D1A-8E47-FBA4467F58A7</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>orig_query={query}
+echo $orig_query
+if [[ $orig_query == ":t:"* ]]; then
+	new_query=${orig_query:3}
+	open "bear://x-callback-url/open-tag?name=$new_query"
+else
+	new_query=${orig_query:3}
+	open "bear://x-callback-url/open-note?id=$new_query"
+fi</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>34803D0C-B70E-4032-96FA-E0A5E179236A</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>alfredfiltersresults</key>
 				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
@@ -168,39 +203,10 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>concurrently</key>
-				<false/>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>script</key>
-				<string>orig_query={query}
-echo $orig_query
-if [[ $orig_query == ":t:"* ]]; then
-	new_query=${orig_query:3}
-	open "bear://x-callback-url/open-tag?name=$new_query"
-else
-	new_query=${orig_query:3}
-	open "bear://x-callback-url/open-note?id=$new_query"
-fi</string>
-				<key>scriptargtype</key>
-				<integer>0</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>type</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>34803D0C-B70E-4032-96FA-E0A5E179236A</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>alfredfiltersresults</key>
 				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
@@ -264,6 +270,23 @@ fi</string>
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>applescript</key>
+				<string>on alfred_script(q)
+  -- your script here
+end alfred_script</string>
+				<key>cachescript</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.applescript</string>
+			<key>uid</key>
+			<string>5ADEB109-2C47-4611-B75E-8B710AD3329D</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string># Bear Alfred Workflow
@@ -297,6 +320,13 @@ To install, download a released alfred-bear.alfredworkflow and double-click to o
 			<key>ypos</key>
 			<integer>180</integer>
 		</dict>
+		<key>5ADEB109-2C47-4611-B75E-8B710AD3329D</key>
+		<dict>
+			<key>xpos</key>
+			<integer>380</integer>
+			<key>ypos</key>
+			<integer>480</integer>
+		</dict>
 		<key>74B5AEA1-6AFC-4867-A76D-0FD11694A60D</key>
 		<dict>
 			<key>xpos</key>
@@ -327,7 +357,7 @@ To install, download a released alfred-bear.alfredworkflow and double-click to o
 		</dict>
 	</dict>
 	<key>version</key>
-	<string>0.3.1</string>
+	<string>0.3.2</string>
 	<key>webaddress</key>
 	<string>https://github.com/chrisbro/alfred-bear</string>
 </dict>
