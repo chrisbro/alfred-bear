@@ -58,6 +58,20 @@ TAGS_BY_TITLE = (
     "ORDER BY "
     "   t.ZMODIFICATIONDATE DESC")
 
+TAGS_BY_TITLE_V6 = (
+    "SELECT DISTINCT"
+    "   t.ZTITLE "
+    "FROM "
+    "   ZSFNOTE n "
+    "   INNER JOIN Z_6TAGS nt ON n.Z_PK = nt.Z_6NOTES "
+    "   INNER JOIN ZSFNOTETAG t ON nt.Z_13TAGS = t.Z_PK "
+    "WHERE "
+    "   n.ZARCHIVED=0 "
+    "   AND n.ZTRASHED=0 "
+    "   AND lower(t.ZTITLE) LIKE lower('%{0}%')"
+    "ORDER BY "
+    "   t.ZMODIFICATIONDATE DESC")
+
 NOTES_BY_TAG_TITLE = (
     "SELECT DISTINCT"
     "   n.ZUNIQUEIDENTIFIER, n.ZTITLE "
@@ -65,6 +79,20 @@ NOTES_BY_TAG_TITLE = (
     "   ZSFNOTE n "
     "   INNER JOIN Z_5TAGS nt ON n.Z_PK = nt.Z_5NOTES "
     "   INNER JOIN ZSFNOTETAG t ON nt.Z_10TAGS = t.Z_PK "
+    "WHERE "
+    "   n.ZARCHIVED=0 "
+    "   AND n.ZTRASHED=0 "
+    "   AND lower(t.ZTITLE) LIKE lower('%{0}%')"
+    "ORDER BY "
+    "   n.ZMODIFICATIONDATE DESC")
+
+NOTES_BY_TAG_TITLE_V6 = (
+    "SELECT DISTINCT"
+    "   n.ZUNIQUEIDENTIFIER, n.ZTITLE "
+    "FROM "
+    "   ZSFNOTE n "
+    "   INNER JOIN Z_6TAGS nt ON n.Z_PK = nt.Z_6NOTES "
+    "   INNER JOIN ZSFNOTETAG t ON nt.Z_13TAGS = t.Z_PK "
     "WHERE "
     "   n.ZARCHIVED=0 "
     "   AND n.ZTRASHED=0 "
@@ -96,7 +124,12 @@ def search_tags_by_title(workflow, log, query):
     Searches for Bear tags by tag name.
     """
 
-    sql_query = TAGS_BY_TITLE.format(query)
+    sql_query = TAGS_BY_TITLE_V6.format(query)
+
+    home = os.path.expanduser("~")
+    if find_bear_db(log) == "{0}{1}".format(home, DB_LOCATION_OLD):
+        sql_query = TAGS_BY_TITLE.format(query)
+
     return run_query(workflow, log, sql_query)
 
 
@@ -105,7 +138,12 @@ def search_notes_by_tag_title(workflow, log, query):
     Searches for Bear notes by tag name.
     """
 
-    sql_query = NOTES_BY_TAG_TITLE.format(query)
+    sql_query = NOTES_BY_TAG_TITLE_V6.format(query)
+
+    home = os.path.expanduser("~")
+    if find_bear_db(log) == "{0}{1}".format(home, DB_LOCATION_OLD):
+        sql_query = NOTES_BY_TAG_TITLE.format(query)
+
     return run_query(workflow, log, sql_query)
 
 
