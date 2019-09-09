@@ -72,6 +72,20 @@ TAGS_BY_TITLE_V6 = (
     "ORDER BY "
     "   t.ZMODIFICATIONDATE DESC")
 
+TAGS_BY_TITLE_V7 = (
+    "SELECT DISTINCT"
+    "   t.ZTITLE "
+    "FROM "
+    "   ZSFNOTE n "
+    "   INNER JOIN Z_7TAGS nt ON n.Z_PK = nt.Z_7NOTES "
+    "   INNER JOIN ZSFNOTETAG t ON nt.Z_14TAGS = t.Z_PK "
+    "WHERE "
+    "   n.ZARCHIVED=0 "
+    "   AND n.ZTRASHED=0 "
+    "   AND lower(t.ZTITLE) LIKE lower('%{0}%')"
+    "ORDER BY "
+    "   t.ZMODIFICATIONDATE DESC")
+
 NOTES_BY_TAG_TITLE = (
     "SELECT DISTINCT"
     "   n.ZUNIQUEIDENTIFIER, n.ZTITLE "
@@ -93,6 +107,20 @@ NOTES_BY_TAG_TITLE_V6 = (
     "   ZSFNOTE n "
     "   INNER JOIN Z_6TAGS nt ON n.Z_PK = nt.Z_6NOTES "
     "   INNER JOIN ZSFNOTETAG t ON nt.Z_13TAGS = t.Z_PK "
+    "WHERE "
+    "   n.ZARCHIVED=0 "
+    "   AND n.ZTRASHED=0 "
+    "   AND lower(t.ZTITLE) LIKE lower('%{0}%')"
+    "ORDER BY "
+    "   n.ZMODIFICATIONDATE DESC")
+
+NOTES_BY_TAG_TITLE_V7 = (
+    "SELECT DISTINCT"
+    "   n.ZUNIQUEIDENTIFIER, n.ZTITLE "
+    "FROM "
+    "   ZSFNOTE n "
+    "   INNER JOIN Z_7TAGS nt ON n.Z_PK = nt.Z_7NOTES "
+    "   INNER JOIN ZSFNOTETAG t ON nt.Z_14TAGS = t.Z_PK "
     "WHERE "
     "   n.ZARCHIVED=0 "
     "   AND n.ZTRASHED=0 "
@@ -130,7 +158,12 @@ def search_tags_by_title(workflow, log, query):
     if find_bear_db(log) == "{0}{1}".format(home, DB_LOCATION_OLD):
         sql_query = TAGS_BY_TITLE.format(query)
 
-    return run_query(workflow, log, sql_query)
+    try:
+        results = run_query(workflow, log, sql_query)
+    except:
+        sql_query = TAGS_BY_TITLE_V7.format(query)
+        results = run_query(workflow, log, sql_query)
+    return results
 
 
 def search_notes_by_tag_title(workflow, log, query):
@@ -144,7 +177,12 @@ def search_notes_by_tag_title(workflow, log, query):
     if find_bear_db(log) == "{0}{1}".format(home, DB_LOCATION_OLD):
         sql_query = NOTES_BY_TAG_TITLE.format(query)
 
-    return run_query(workflow, log, sql_query)
+    try:
+        results = run_query(workflow, log, sql_query)
+    except:
+        sql_query = NOTES_BY_TAG_TITLE_V7.format(query)
+        results = run_query(workflow, log, sql_query)
+    return results
 
 
 def run_query(workflow, log, sql):
