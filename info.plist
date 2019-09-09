@@ -63,8 +63,6 @@
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
 				<integer>0</integer>
-				<key>argumenttreatemptyqueryasnil</key>
-				<false/>
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
@@ -103,7 +101,7 @@
 			<key>uid</key>
 			<string>1A741966-5341-40BC-996D-68EAB30F62AA</string>
 			<key>version</key>
-			<integer>3</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -162,8 +160,6 @@ fi</string>
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
 				<integer>0</integer>
-				<key>argumenttreatemptyqueryasnil</key>
-				<false/>
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
@@ -202,7 +198,7 @@ fi</string>
 			<key>uid</key>
 			<string>A10CF1DB-F3D4-4248-A45A-0954FE2C61E7</string>
 			<key>version</key>
-			<integer>3</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -211,8 +207,6 @@ fi</string>
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
 				<integer>0</integer>
-				<key>argumenttreatemptyqueryasnil</key>
-				<false/>
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
@@ -251,7 +245,7 @@ fi</string>
 			<key>uid</key>
 			<string>74B5AEA1-6AFC-4867-A76D-0FD11694A60D</string>
 			<key>version</key>
-			<integer>3</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -362,10 +356,8 @@ To install, download a released alfred-bear.alfredworkflow and double-click to o
 			<integer>310</integer>
 		</dict>
 	</dict>
-	<key>variablesdontexport</key>
-	<array/>
 	<key>version</key>
-	<string>0.3.4</string>
+	<string>0.3.5</string>
 	<key>webaddress</key>
 	<string>https://github.com/chrisbro/alfred-bear</string>
 </dict>

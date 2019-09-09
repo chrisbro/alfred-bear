@@ -1,5 +1,6 @@
 ## In Alfred:
 
+- Do all this in Alfred 3 or it'll break compatibility!
 - Update "[About this workflow](https://www.alfredapp.com/help/workflows/advanced/sharing-workflows/)"
 - Update workflow version
 - Check that it works with ~/Library/Application Support/Alfred 3/Workflow Data/com.chrisbro.bear removed

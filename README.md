@@ -1,9 +1,9 @@
 # Bear Alfred Workflow
 
-[Alfred 3 workflow](https://www.alfredapp.com/workflows/) to search and create notes in [Bear](http://www.bear-writer.com/). View it on [Packal](http://www.packal.org/workflow/bear), or [join in the discussion on the Alfred forums](https://www.alfredforum.com/topic/10403-bear-workflow-search-and-create-notes/).
+[Alfred workflow](https://www.alfredapp.com/workflows/) to search and create notes in [Bear](http://www.bear-writer.com/). View it on [Packal](http://www.packal.org/workflow/bear), or [join in the discussion on the Alfred forums](https://www.alfredforum.com/topic/10403-bear-workflow-search-and-create-notes/).
 
 ## Install
-To install, download a [released alfred-bear workflow](https://github.com/chrisbro/alfred-bear/releases/download/0.3.4/alfred-bear.alfredworkflow) and double-click to open in Alfred 3. Easy-peasy.
+To install, download a [released alfred-bear workflow](https://github.com/chrisbro/alfred-bear/releases/download/0.3.5/alfred-bear.alfredworkflow) and double-click to open in Alfred. Easy-peasy.
 
 ## Searching and opening results 
 `bs` -- Search for a note by title/content and open it in Bear.
@@ -36,6 +36,9 @@ To install, download a [released alfred-bear workflow](https://github.com/chrisb
 - [Rhyd Lewis](https://github.com/rhydlewis) for giving me an excellent example to work off of in his [Omnifocus Alfred workflow](https://github.com/rhydlewis/search-omnifocus).
 
 ## Versions
+### 0.3.5
+* Fixed backwards compatibility with Alfred 3, sorry about that.
+
 ### 0.3.4
 * Fixed 'bst' calls that were failing due to schema change. Again. The SQL schema change sequel, if you will.
 
