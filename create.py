@@ -91,3 +91,7 @@ if __name__ == '__main__':
     WORKFLOW = Workflow(update_settings=UPDATE_SETTINGS)
     LOGGER = WORKFLOW.logger
     sys.exit(WORKFLOW.run(main))
+
+
+print("this is just a test")
+# let us see how good this works
