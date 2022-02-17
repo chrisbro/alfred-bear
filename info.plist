@@ -10,7 +10,7 @@
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>A5A16924-B144-4D1A-8E47-FBA4467F58A7</string>
+				<string>DF453589-35D9-4C90-A2D7-F1FF0D6B9AB6</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -45,6 +45,19 @@
 				<false/>
 			</dict>
 		</array>
+		<key>D14874E6-A2AF-4386-A5E4-15D8F6C2AD6C</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>DF453589-35D9-4C90-A2D7-F1FF0D6B9AB6</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 	</dict>
 	<key>createdby</key>
 	<string>Chris Brown</string>
@@ -63,6 +76,8 @@
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
 				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
@@ -101,7 +116,7 @@
 			<key>uid</key>
 			<string>1A741966-5341-40BC-996D-68EAB30F62AA</string>
 			<key>version</key>
-			<integer>2</integer>
+			<integer>3</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -118,9 +133,107 @@
 			<key>type</key>
 			<string>alfred.workflow.action.openurl</string>
 			<key>uid</key>
-			<string>A5A16924-B144-4D1A-8E47-FBA4467F58A7</string>
+			<string>DF453589-35D9-4C90-A2D7-F1FF0D6B9AB6</string>
 			<key>version</key>
 			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>bt</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Searching...</string>
+				<key>script</key>
+				<string>/usr/bin/python search.py -t i "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
+				<key>title</key>
+				<string>Search Bear Notes by Title</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>D14874E6-A2AF-4386-A5E4-15D8F6C2AD6C</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>bst</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Searching...</string>
+				<key>script</key>
+				<string>/usr/bin/python search.py -t a "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
+				<key>title</key>
+				<string>Search Bear Notes by Tag</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>A10CF1DB-F3D4-4248-A45A-0954FE2C61E7</string>
+			<key>version</key>
+			<integer>3</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -160,53 +273,8 @@ fi</string>
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
 				<integer>0</integer>
-				<key>argumenttrimmode</key>
-				<integer>0</integer>
-				<key>argumenttype</key>
-				<integer>0</integer>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>keyword</key>
-				<string>bst</string>
-				<key>queuedelaycustom</key>
-				<integer>3</integer>
-				<key>queuedelayimmediatelyinitially</key>
-				<true/>
-				<key>queuedelaymode</key>
-				<integer>0</integer>
-				<key>queuemode</key>
-				<integer>1</integer>
-				<key>runningsubtext</key>
-				<string>Searching...</string>
-				<key>script</key>
-				<string>/usr/bin/python search.py -t a "{query}"</string>
-				<key>scriptargtype</key>
-				<integer>0</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>subtext</key>
-				<string></string>
-				<key>title</key>
-				<string>Search Bear Notes by Tag</string>
-				<key>type</key>
-				<integer>0</integer>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
-			<key>uid</key>
-			<string>A10CF1DB-F3D4-4248-A45A-0954FE2C61E7</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>alfredfiltersresults</key>
+				<key>argumenttreatemptyqueryasnil</key>
 				<false/>
-				<key>alfredfiltersresultsmatchmode</key>
-				<integer>0</integer>
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
@@ -245,7 +313,7 @@ fi</string>
 			<key>uid</key>
 			<string>74B5AEA1-6AFC-4867-A76D-0FD11694A60D</string>
 			<key>version</key>
-			<integer>2</integer>
+			<integer>3</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -309,51 +377,58 @@ To install, download a released alfred-bear.alfredworkflow and double-click to o
 		<key>1A741966-5341-40BC-996D-68EAB30F62AA</key>
 		<dict>
 			<key>xpos</key>
-			<integer>280</integer>
+			<integer>285</integer>
 			<key>ypos</key>
-			<integer>50</integer>
+			<integer>30</integer>
 		</dict>
 		<key>34803D0C-B70E-4032-96FA-E0A5E179236A</key>
 		<dict>
 			<key>xpos</key>
-			<integer>520</integer>
+			<integer>525</integer>
 			<key>ypos</key>
-			<integer>180</integer>
+			<integer>370</integer>
 		</dict>
 		<key>5ADEB109-2C47-4611-B75E-8B710AD3329D</key>
 		<dict>
 			<key>xpos</key>
-			<integer>380</integer>
+			<integer>405</integer>
 			<key>ypos</key>
-			<integer>480</integer>
+			<integer>690</integer>
 		</dict>
 		<key>74B5AEA1-6AFC-4867-A76D-0FD11694A60D</key>
 		<dict>
 			<key>xpos</key>
-			<integer>280</integer>
+			<integer>285</integer>
 			<key>ypos</key>
-			<integer>310</integer>
+			<integer>535</integer>
 		</dict>
 		<key>A10CF1DB-F3D4-4248-A45A-0954FE2C61E7</key>
 		<dict>
 			<key>xpos</key>
-			<integer>280</integer>
+			<integer>285</integer>
 			<key>ypos</key>
-			<integer>180</integer>
-		</dict>
-		<key>A5A16924-B144-4D1A-8E47-FBA4467F58A7</key>
-		<dict>
-			<key>xpos</key>
-			<integer>520</integer>
-			<key>ypos</key>
-			<integer>50</integer>
+			<integer>370</integer>
 		</dict>
 		<key>B7C7DDC1-B797-4FF0-8AA0-0362C306C19A</key>
 		<dict>
 			<key>xpos</key>
-			<integer>520</integer>
+			<integer>525</integer>
 			<key>ypos</key>
-			<integer>310</integer>
+			<integer>535</integer>
+		</dict>
+		<key>D14874E6-A2AF-4386-A5E4-15D8F6C2AD6C</key>
+		<dict>
+			<key>xpos</key>
+			<integer>285</integer>
+			<key>ypos</key>
+			<integer>200</integer>
+		</dict>
+		<key>DF453589-35D9-4C90-A2D7-F1FF0D6B9AB6</key>
+		<dict>
+			<key>xpos</key>
+			<integer>525</integer>
+			<key>ypos</key>
+			<integer>105</integer>
 		</dict>
 	</dict>
 	<key>version</key>

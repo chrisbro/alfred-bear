@@ -10,6 +10,7 @@ import argparse
 import queries
 from workflow import Workflow, ICON_SYNC
 
+EVERYWHERE = "e"
 TITLE = "i"
 TAGS = "a"
 
@@ -51,9 +52,9 @@ def parse_args():
     """
 
     parser = argparse.ArgumentParser(description="Search Bear Notes")
-    parser.add_argument('-t', '--type', default=TITLE,
-                        choices=[TITLE, TAGS],
-                        type=str, help='What to search for: t(i)tle, or t(a)gs?')
+    parser.add_argument('-t', '--type', default=EVERYWHERE,
+                        choices=[TITLE, TAGS, EVERYWHERE],
+                        type=str, help='What to search for: t(i)tle, t(a)gs, or (e)verywhere?')
     parser.add_argument('query', type=unicode,
                         nargs=argparse.REMAINDER, help='query string')
 
@@ -93,6 +94,18 @@ def execute_search_query(args):
                 note_arg = ':n:' + note_result[0]
                 WORKFLOW.add_item(title=note_result[1], subtitle="Open note",
                                   arg=note_arg, valid=True)
+
+    elif args.type == TITLE:
+        LOGGER.debug('Searching titles')
+        title_results = queries.search_notes_by_title(WORKFLOW, LOGGER, query)
+        if not title_results:
+            WORKFLOW.add_item('No search results found.')
+        else:
+            note_ids = []
+            for title_result in title_results:
+                LOGGER.debug(title_result)
+                WORKFLOW.add_item(title=title_result[1], subtitle="Open note", arg=title_result[0], valid=True)
+                note_ids.append(title_result[0])
 
     else:
         LOGGER.debug('Searching notes')
