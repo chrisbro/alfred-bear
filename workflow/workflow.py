@@ -24,7 +24,6 @@ from __future__ import print_function, unicode_literals
 import atexit
 import binascii
 from contextlib import contextmanager
-import cPickle
 from copy import deepcopy
 import errno
 import json
@@ -46,6 +45,13 @@ try:
     import xml.etree.cElementTree as ET
 except ImportError:  # pragma: no cover
     import xml.etree.ElementTree as ET
+
+SUPPORTS_CPICKLE = True
+try:
+    import cPickle
+except ImportError:
+    cPickle = None
+    SUPPORTS_CPICKLE = False
 
 
 #: Sentinel for properties that haven't been set yet (that might
@@ -698,7 +704,8 @@ class PickleSerializer(object):
 
 # Set up default manager and register built-in serializers
 manager = SerializerManager()
-manager.register('cpickle', CPickleSerializer)
+if SUPPORTS_CPICKLE:
+    manager.register('cpickle', CPickleSerializer)
 manager.register('pickle', PickleSerializer)
 manager.register('json', JSONSerializer)
 
@@ -1120,8 +1127,11 @@ class Workflow(object):
         self._bundleid = None
         self._debugging = None
         self._name = None
-        self._cache_serializer = 'cpickle'
-        self._data_serializer = 'cpickle'
+        self._cache_serializer = 'pickle'
+        self._data_serializer = 'pickle'
+        if SUPPORTS_CPICKLE:
+            self._cache_serializer = 'cpickle'
+            self._data_serializer = 'cpickle'
         self._info = None
         self._info_loaded = False
         self._logger = None
