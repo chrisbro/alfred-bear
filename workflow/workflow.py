@@ -1267,7 +1267,12 @@ class Workflow(object):
             if self.alfred_env.get('workflow_bundleid'):
                 self._bundleid = self.alfred_env.get('workflow_bundleid')
             else:
-                self._bundleid = unicode(self.info['bundleid'], 'utf-8')
+                try:
+                    self._bundleid = unicode(self.info['bundleid'], 'utf-8')
+                except NameError:
+                    self._bundleid = None
+        if not self._bundleid:
+            self._bundleid = self.info['bundleid']
 
         return self._bundleid
 
@@ -1336,7 +1341,7 @@ class Workflow(object):
 
                 if os.path.exists(filepath):
                     with open(filepath, 'rb') as fileobj:
-                        version = fileobj.read()
+                        version = fileobj.read().decode()
 
             # info.plist
             if not version:
@@ -1822,7 +1827,7 @@ class Workflow(object):
         def _store():
             # Save file extension
             with atomic_writer(metadata_path, 'wb') as file_obj:
-                file_obj.write(serializer_name)
+                file_obj.write(serializer_name.encode())
 
             with atomic_writer(data_path, 'wb') as file_obj:
                 serializer.dump(data, file_obj)
@@ -2247,7 +2252,10 @@ class Workflow(object):
 
             if not sys.stdout.isatty():  # Show error in Alfred
                 if text_errors:
-                    print(unicode(err).encode('utf-8'), end='')
+                    try:
+                        print(unicode(err).encode('utf-8'), end='')
+                    except NameError:
+                        print(err, end='')
                 else:
                     self._items = []
                     if self._name:
@@ -2256,9 +2264,14 @@ class Workflow(object):
                         name = self._bundleid
                     else:  # pragma: no cover
                         name = os.path.dirname(__file__)
-                    self.add_item("Error in workflow '%s'" % name,
-                                  unicode(err),
-                                  icon=ICON_ERROR)
+                    try:
+                        self.add_item("Error in workflow '%s'" % name,
+                                      unicode(err),
+                                      icon=ICON_ERROR)
+                    except NameError:
+                        self.add_item("Error in workflow '%s'" % name,
+                                      err,
+                                      icon=ICON_ERROR)
                     self.send_feedback()
             return 1
 
@@ -2347,7 +2360,7 @@ class Workflow(object):
         for item in self._items:
             root.append(item.elem)
         sys.stdout.write('<?xml version="1.0" encoding="utf-8"?>\n')
-        sys.stdout.write(ET.tostring(root).encode('utf-8'))
+        sys.stdout.write(ET.tostring(root, encoding='utf-8').decode())
         sys.stdout.flush()
 
     ####################################################################
@@ -2414,7 +2427,12 @@ class Workflow(object):
 
             version = self.version
 
-        if isinstance(version, basestring):
+        isstr = False
+        try:
+            isstr = isinstance(version, basestring)
+        except NameError:
+            isstr = isinstance(version, str)
+        if isstr:
             from update import Version
             version = Version(version)
 
@@ -2870,8 +2888,14 @@ class Workflow(object):
         """
         encoding = encoding or self._input_encoding
         normalization = normalization or self._normalizsation
-        if not isinstance(text, unicode):
-            text = unicode(text, encoding)
+        try:
+            if not isinstance(text, unicode):
+                text = unicode(text, encoding)
+        except NameError:
+            # Py3 doesn't have unicode
+            pass
+        if isinstance(text, bytes):
+            text = text.decode("utf-8")
         return unicodedata.normalize(normalization, text)
 
     def fold_to_ascii(self, text):

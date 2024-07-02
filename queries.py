@@ -201,6 +201,10 @@ def run_query(workflow, log, sql):
     else:
         log.debug(db_path)
 
+    # Encode db_path for Py{2,3}
+    if isinstance(db_path, bytearray):
+        db_path = bytes(db_path)
+
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     log.debug(sql)
