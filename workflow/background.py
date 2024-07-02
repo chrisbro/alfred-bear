@@ -17,8 +17,6 @@ import os
 import subprocess
 import pickle
 
-from workflow import Workflow
-
 __all__ = ['is_running', 'run_in_background']
 
 _wf = None
@@ -27,6 +25,7 @@ _wf = None
 def wf():
     global _wf
     if _wf is None:
+        from workflow import Workflow
         _wf = Workflow()
     return _wf
 

@@ -29,7 +29,13 @@ import re
 import subprocess
 
 import workflow
-import web
+
+try:
+    from .web import get as web_get
+except (ImportError, ValueError):
+    # ValueError is thrown is py2
+    # ImportError is thrown is py3
+    from web import get as web_get
 
 # __all__ = []
 
@@ -212,7 +218,7 @@ def download_workflow(url):
     wf().logger.debug(
         'Downloading updated workflow from `%s` to `%s` ...', url, local_path)
 
-    response = web.get(url)
+    response = web_get(url)
 
     with open(local_path, 'wb') as output:
         output.write(response.content)
@@ -311,7 +317,7 @@ def get_valid_releases(github_slug, prereleases=False):
     def retrieve_releases():
         wf().logger.info(
             'Retrieving releases for `%s` ...', github_slug)
-        return web.get(api_url).json()
+        return web_get(api_url).json()
 
     slug = github_slug.replace('/', '-')
     for release in wf().cached_data('gh-releases-{0}'.format(slug),
