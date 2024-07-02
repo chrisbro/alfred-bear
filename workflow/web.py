@@ -19,9 +19,16 @@ import socket
 import string
 import unicodedata
 import urllib
-import urllib2
-import urlparse
 import zlib
+
+SUPPORTS_URLLIB2 = True
+try:
+    import urllib2
+    import urlparse
+except ImportError:
+    urllib2 = None
+    urlparse = None
+    SUPPORTS_URLLIB2 = False
 
 
 USER_AGENT = u'Alfred-Workflow/1.19 (+http://www.deanishe.net/alfred-workflow)'
@@ -94,11 +101,12 @@ def str_dict(dic):
     return dic2
 
 
-class NoRedirectHandler(urllib2.HTTPRedirectHandler):
-    """Prevent redirections."""
+if SUPPORTS_URLLIB2:
+    class NoRedirectHandler(urllib2.HTTPRedirectHandler):
+        """Prevent redirections."""
 
-    def redirect_request(self, *args):
-        return None
+        def redirect_request(self, *args):
+            return None
 
 
 # Adapted from https://gist.github.com/babakness/3901174
@@ -574,9 +582,11 @@ def get(url, params=None, headers=None, cookies=None, auth=None,
     :returns: :class:`Response` instance
 
     """
-    return request('GET', url, params, headers=headers, cookies=cookies,
-                   auth=auth, timeout=timeout, allow_redirects=allow_redirects,
-                   stream=stream)
+    if SUPPORTS_URLLIB2:
+        return request('GET', url, params, headers=headers, cookies=cookies,
+                       auth=auth, timeout=timeout, allow_redirects=allow_redirects,
+                       stream=stream)
+    return urllib.request.urlopen(url, timeout=timeout)
 
 
 def post(url, params=None, data=None, headers=None, cookies=None, files=None,

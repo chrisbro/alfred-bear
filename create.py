@@ -6,8 +6,12 @@ Note creation script for alfred-bear workflow.
 """
 
 import sys
-from urllib import quote
 from workflow import Workflow, ICON_SYNC
+
+try:
+    from urllib import quote
+except ImportError:
+    from urllib.parse import quote
 
 LOGGER = None
 
