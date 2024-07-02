@@ -178,7 +178,7 @@ def run_in_background(name, args, **kwargs):
         wf().logger.debug('Command arguments cached to `{0}`'.format(argcache))
 
     # Call this script
-    cmd = ['/usr/bin/python', __file__, name]
+    cmd = [sys.executable, __file__, name]
     wf().logger.debug('Calling {0!r} ...'.format(cmd))
     retcode = subprocess.call(cmd)
     if retcode:  # pragma: no cover
