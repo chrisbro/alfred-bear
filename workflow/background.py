@@ -130,9 +130,9 @@ def _background(stdin='/dev/null', stdout='/dev/null',
 
     # Now I am a daemon!
     # Redirect standard file descriptors.
-    si = open(stdin, 'r', 0)
-    so = open(stdout, 'a+', 0)
-    se = open(stderr, 'a+', 0)
+    si = open(stdin, 'rb', 0)
+    so = open(stdout, 'a+b', 0)
+    se = open(stderr, 'a+b', 0)
     if hasattr(sys.stdin, 'fileno'):
         os.dup2(si.fileno(), sys.stdin.fileno())
     if hasattr(sys.stdout, 'fileno'):
