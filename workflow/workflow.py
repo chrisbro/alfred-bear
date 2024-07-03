@@ -1013,7 +1013,12 @@ class Settings(dict):
         self._nosave = True
         d = {}
         with open(self._filepath, 'rb') as file_obj:
-            for key, value in json.load(file_obj, encoding='utf-8').items():
+            try:
+                data = json.load(file_obj, encoding='utf-8')
+            except TypeError:
+                file_obj.seek(0)
+                data = json.load(file_obj)
+            for key, value in data.items():
                 d[key] = value
         self.update(d)
         self._original = deepcopy(d)
