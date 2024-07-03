@@ -1456,12 +1456,16 @@ class Workflow(object):
         :rtype: ``unicode``
 
         """
+        if hasattr(os, "getcwdu"):
+            getcwd = os.getcwdu
+        else:
+            getcwd = os.getcwd
         if not self._workflowdir:
             # Try the working directory first, then the directory
             # the library is in. CWD will be the workflow root if
             # a workflow is being run in Alfred
             candidates = [
-                os.path.abspath(os.getcwdu()),
+                os.path.abspath(getcwd()),
                 os.path.dirname(os.path.abspath(os.path.dirname(__file__)))]
 
             # climb the directory tree until we find `info.plist`
