@@ -2935,10 +2935,17 @@ class Workflow(object):
                     os.unlink(path)
                 self.logger.debug('Deleted : %r', path)
 
+    def _read_info_plist(self):
+        workflow_plist_path = self.workflowfile('info.plist')
+        if hasattr(plistlib, 'readPlist'):
+            return plistlib.readPlist(workflow_plist_path)
+        with open(workflow_plist_path, 'rb') as workflow_plist_file:
+            return plistlib.load(workflow_plist_file)
+
     def _load_info_plist(self):
         """Load workflow info from ``info.plist``."""
         # info.plist should be in the directory above this one
-        self._info = plistlib.readPlist(self.workflowfile('info.plist'))
+        self._info = self._read_info_plist()
         self._info_loaded = True
 
     def _create(self, dirpath):
