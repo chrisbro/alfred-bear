@@ -190,7 +190,21 @@ def run_query(workflow, log, sql):
     Takes a SQL command, executes it, and returns the results.
     """
 
-    db_path = workflow.stored_data(DB_KEY)
+    try:
+        db_path = workflow.stored_data(DB_KEY)
+    except ValueError as err:
+        db_path = None
+        if str(err).startswith("unsupported pickle protocol"):
+            # happens whening using older versions of python
+            # safe to ignore and search for path
+            pass
+        elif str(err).startswith("Unknown serializer"):
+            # happens with a py2 serializer is used
+            # safe to ignore and search for path
+            pass
+        else:
+            raise
+
     home = os.path.expanduser("~")
     if db_path and db_path == "{0}{1}".format(home, DB_LOCATION_OLD):
         db_path = find_bear_db(log)
