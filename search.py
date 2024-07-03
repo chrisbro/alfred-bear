@@ -49,17 +49,34 @@ def parse_args():
     """
     Parses out the arguments sent to the script in the Alfred workflow.
     """
+    # Unicode was replace with str in Py3
+    try:
+        query_type = unicode
+    except NameError:
+        query_type = str
 
     parser = argparse.ArgumentParser(description="Search Bear Notes")
     parser.add_argument('-t', '--type', default=TITLE,
                         choices=[TITLE, TAGS],
                         type=str, help='What to search for: t(i)tle, or t(a)gs?')
-    parser.add_argument('query', type=unicode,
+    parser.add_argument('query', type=query_type,
                         nargs=argparse.REMAINDER, help='query string')
 
     LOGGER.debug(WORKFLOW.args)
     args = parser.parse_args(WORKFLOW.args)
     return args
+
+
+def _encode(q):
+    """
+    Handle encoding query for Py{2,3}
+    """
+    try:
+        if isinstance(q, unicode):
+            return q.encode('utf-8')
+    except NameError:
+        pass
+    return q
 
 
 def execute_search_query(args):
@@ -69,7 +86,7 @@ def execute_search_query(args):
     query = None
     if args.query:
         query = args.query[0]
-        query = query.encode('utf-8')
+        query = _encode(query)
 
         if SINGLE_QUOTE in query:
             query = query.replace(SINGLE_QUOTE, ESC_SINGLE_QUOTE)
