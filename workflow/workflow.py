@@ -24,7 +24,6 @@ from __future__ import print_function, unicode_literals
 import atexit
 import binascii
 from contextlib import contextmanager
-import cPickle
 from copy import deepcopy
 import errno
 import json
@@ -47,6 +46,21 @@ try:
 except ImportError:  # pragma: no cover
     import xml.etree.ElementTree as ET
 
+try:
+    from .background import run_in_background
+    from .update import Version
+except (ValueError, ImportError):
+    # ValueError is thrown is py2
+    # ImportError is thrown is py3
+    from background import _process_exists, run_in_background
+    from update import Version
+
+SUPPORTS_CPICKLE = True
+try:
+    import cPickle
+except ImportError:
+    cPickle = None
+    SUPPORTS_CPICKLE = False
 
 #: Sentinel for properties that haven't been set yet (that might
 #: correctly have the value ``None``)
@@ -698,7 +712,8 @@ class PickleSerializer(object):
 
 # Set up default manager and register built-in serializers
 manager = SerializerManager()
-manager.register('cpickle', CPickleSerializer)
+if SUPPORTS_CPICKLE:
+    manager.register('cpickle', CPickleSerializer)
 manager.register('pickle', PickleSerializer)
 manager.register('json', JSONSerializer)
 
@@ -863,7 +878,6 @@ class LockFile(object):
         except ValueError:
             return self.release()
 
-        from background import _process_exists
         if not _process_exists(pid):
             self.release()
 
@@ -1120,8 +1134,11 @@ class Workflow(object):
         self._bundleid = None
         self._debugging = None
         self._name = None
-        self._cache_serializer = 'cpickle'
-        self._data_serializer = 'cpickle'
+        self._cache_serializer = 'pickle'
+        self._data_serializer = 'pickle'
+        if SUPPORTS_CPICKLE:
+            self._cache_serializer = 'cpickle'
+            self._data_serializer = 'cpickle'
         self._info = None
         self._info_loaded = False
         self._logger = None
@@ -1162,7 +1179,6 @@ class Workflow(object):
     @property
     def alfred_version(self):
         """Alfred version as :class:`~workflow.update.Version` object."""
-        from update import Version
         return Version(self.alfred_env.get('version'))
 
     @property
@@ -1343,7 +1359,6 @@ class Workflow(object):
                 version = self.info.get('version')
 
             if version:
-                from update import Version
                 version = Version(version)
 
             self._version = version
@@ -2385,7 +2400,6 @@ class Workflow(object):
 
             version = self.settings.get('__workflow_last_version')
             if version:
-                from update import Version
                 version = Version(version)
 
             self._last_version_run = version
@@ -2415,7 +2429,6 @@ class Workflow(object):
             version = self.version
 
         if isinstance(version, basestring):
-            from update import Version
             version = Version(version)
 
         self.settings['__workflow_last_version'] = str(version)
@@ -2494,8 +2507,6 @@ class Workflow(object):
             # version = self._update_settings['version']
             version = str(self.version)
 
-            from background import run_in_background
-
             # update.py is adjacent to this file
             update_script = os.path.join(os.path.dirname(__file__),
                                          b'update.py')
@@ -2533,8 +2544,6 @@ class Workflow(object):
 
         if not update.check_update(github_slug, version, self.prereleases):
             return False
-
-        from background import run_in_background
 
         # update.py is adjacent to this file
         update_script = os.path.join(os.path.dirname(__file__),
