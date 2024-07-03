@@ -84,8 +84,11 @@ def is_running(name):
     if not os.path.exists(pidfile):
         return False
 
-    with open(pidfile, 'rb') as file_obj:
-        pid = int(file_obj.read().strip())
+    try:
+        with open(pidfile, 'rb') as file_obj:
+            pid = int(file_obj.read().strip())
+    except ValueError:
+        return False
 
     if _process_exists(pid):
         return True
