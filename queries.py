@@ -211,6 +211,15 @@ def run_query(workflow, log, sql):
     return results
 
 
+def is_sqlite_db(db_path):
+    try:
+        with open(db_path, mode="rb") as db_file:
+            header = db_file.read(16)
+    except IOError:
+        return False
+    return header == b"SQLite format 3\000"
+
+
 def find_bear_db(log):
     """
     Finds the Bear sqlite3 DB.
@@ -219,15 +228,15 @@ def find_bear_db(log):
     home = os.path.expanduser("~")
     db_file = "{0}{1}".format(home, DB_LOCATION)
 
-    if not os.path.isfile(db_file):
+    if not is_sqlite_db(db_file):
         log.debug(
             "Bear db not found at {0}".format(db_file))
         db_file = "{0}{1}".format(home, DB_LOCATION_OLD)
-        if not os.path.isfile(db_file):
+        if not is_sqlite_db(db_file):
             log.debug(
                 "Bear db not found at {0}".format(db_file))
             db_file = "{0}{1}".format(home, DB_LOCATION_OLD_OLD)
-            if not os.path.isfile(db_file):
+            if not is_sqlite_db(db_file):
                 log.debug(
                     "Bear db not found at {0}".format(db_file))
 
