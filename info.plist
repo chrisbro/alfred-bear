@@ -82,7 +82,18 @@
 				<key>runningsubtext</key>
 				<string>Searching...</string>
 				<key>script</key>
-				<string>/usr/bin/python search.py "{query}"</string>
+				<string>#!/bin/bash
+
+if [ -e /usr/bin/python ]; then
+    py=/usr/bin/python
+elif [ -e /usr/bin/python3 ]; then
+    py=/usr/bin/python3
+else
+    echo "Couldn't find system python"
+    exit 1
+fi
+
+$py search.py "{query}"</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -179,7 +190,18 @@ fi</string>
 				<key>runningsubtext</key>
 				<string>Searching...</string>
 				<key>script</key>
-				<string>/usr/bin/python search.py -t a "{query}"</string>
+				<string>#!/bin/bash
+
+if [ -e /usr/bin/python ]; then
+    py=/usr/bin/python
+elif [ -e /usr/bin/python3 ]; then
+    py=/usr/bin/python3
+else
+    echo "Couldn't find system python"
+    exit 1
+fi
+
+$py search.py -t a "{query}"</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -226,7 +248,18 @@ fi</string>
 				<key>runningsubtext</key>
 				<string>Searching...</string>
 				<key>script</key>
-				<string>/usr/bin/python create.py "{query}"</string>
+				<string>#!/bin/bash
+
+if [ -e /usr/bin/python ]; then
+    py=/usr/bin/python
+elif [ -e /usr/bin/python3 ]; then
+    py=/usr/bin/python3
+else
+    echo "Couldn't find system python"
+    exit 1
+fi
+
+$py create.py "{query}"</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
