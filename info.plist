@@ -84,10 +84,10 @@
 				<key>script</key>
 				<string>#!/bin/bash
 
-if [ -e /usr/bin/python3 ]; then
-    py=/usr/bin/python3
-elif [ -e /usr/bin/python ]; then
+if [ -e /usr/bin/python ]; then
     py=/usr/bin/python
+elif [ -e /usr/bin/python3 ]; then
+    py=/usr/bin/python3
 else
     echo "Couldn't find system python"
     exit 1
@@ -192,10 +192,10 @@ fi</string>
 				<key>script</key>
 				<string>#!/bin/bash
 
-if [ -e /usr/bin/python3 ]; then
-    py=/usr/bin/python3
-elif [ -e /usr/bin/python ]; then
+if [ -e /usr/bin/python ]; then
     py=/usr/bin/python
+elif [ -e /usr/bin/python3 ]; then
+    py=/usr/bin/python3
 else
     echo "Couldn't find system python"
     exit 1
@@ -250,10 +250,10 @@ $py search.py -t a "{query}"</string>
 				<key>script</key>
 				<string>#!/bin/bash
 
-if [ -e /usr/bin/python3 ]; then
-    py=/usr/bin/python3
-elif [ -e /usr/bin/python ]; then
+if [ -e /usr/bin/python ]; then
     py=/usr/bin/python
+elif [ -e /usr/bin/python3 ]; then
+    py=/usr/bin/python3
 else
     echo "Couldn't find system python"
     exit 1
