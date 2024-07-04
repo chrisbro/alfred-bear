@@ -93,7 +93,7 @@ else
     exit 1
 fi
 
-/usr/bin/python search.py "{query}"</string>
+$py search.py "{query}"</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -201,7 +201,7 @@ else
     exit 1
 fi
 
-/usr/bin/python search.py -t a "{query}"</string>
+$py search.py -t a "{query}"</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -259,7 +259,7 @@ else
     exit 1
 fi
 
-/usr/bin/python create.py "{query}"</string>
+$py create.py "{query}"</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
