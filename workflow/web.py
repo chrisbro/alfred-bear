@@ -19,9 +19,17 @@ import socket
 import string
 import unicodedata
 import urllib
-import urllib2
-import urlparse
 import zlib
+
+SUPPORTS_URLLIB2 = True
+try:
+    import urllib2
+    import urlparse
+except ImportError:
+    urllib2 = None
+    urlparse = None
+    import urllib.request
+    SUPPORTS_URLLIB2 = False
 
 
 USER_AGENT = u'Alfred-Workflow/1.19 (+http://www.deanishe.net/alfred-workflow)'
@@ -94,11 +102,12 @@ def str_dict(dic):
     return dic2
 
 
-class NoRedirectHandler(urllib2.HTTPRedirectHandler):
-    """Prevent redirections."""
+if SUPPORTS_URLLIB2:
+    class NoRedirectHandler(urllib2.HTTPRedirectHandler):
+        """Prevent redirections."""
 
-    def redirect_request(self, *args):
-        return None
+        def redirect_request(self, *args):
+            return None
 
 
 # Adapted from https://gist.github.com/babakness/3901174
@@ -567,6 +576,24 @@ def request(method, url, params=None, data=None, headers=None, cookies=None,
     return Response(req, stream)
 
 
+class Response2:
+    """The bare min for a working Response in Python3"""
+
+    def __init__(self, resp):
+        self.resp = resp
+        self._read = False
+
+    @property
+    def content(self):
+        if self._read:
+            raise RuntimeError("Already read response")
+        self._read = True
+        return self.resp.read()
+
+    def json(self):
+        return json.loads(self.content)
+
+
 def get(url, params=None, headers=None, cookies=None, auth=None,
         timeout=60, allow_redirects=True, stream=False):
     """Initiate a GET request. Arguments as for :func:`request`.
@@ -574,9 +601,11 @@ def get(url, params=None, headers=None, cookies=None, auth=None,
     :returns: :class:`Response` instance
 
     """
-    return request('GET', url, params, headers=headers, cookies=cookies,
-                   auth=auth, timeout=timeout, allow_redirects=allow_redirects,
-                   stream=stream)
+    if SUPPORTS_URLLIB2:
+        return request('GET', url, params, headers=headers, cookies=cookies,
+                       auth=auth, timeout=timeout, allow_redirects=allow_redirects,
+                       stream=stream)
+    return Response2(resp=urllib.request.urlopen(url, timeout=timeout))
 
 
 def post(url, params=None, data=None, headers=None, cookies=None, files=None,
