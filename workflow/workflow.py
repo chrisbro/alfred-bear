@@ -2360,7 +2360,12 @@ class Workflow(object):
         for item in self._items:
             root.append(item.elem)
         sys.stdout.write('<?xml version="1.0" encoding="utf-8"?>\n')
-        sys.stdout.write(ET.tostring(root, encoding='utf-8').decode())
+        try:
+            # Py2
+            sys.stdout.write(ET.tostring(root, encoding='utf-8'))
+        except TypeError:
+            # Py3
+            sys.stdout.write(ET.tostring(root, encoding='utf-8').decode())
         sys.stdout.flush()
 
     ####################################################################
