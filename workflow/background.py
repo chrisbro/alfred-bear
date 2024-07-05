@@ -218,7 +218,7 @@ def main(wf):  # pragma: no cover
     _background()
 
     # Write PID to file
-    with open(pidfile, 'wb') as file_obj:
+    with open(pidfile, 'w') as file_obj:
         file_obj.write('{0}'.format(os.getpid()))
 
     # Run the command
