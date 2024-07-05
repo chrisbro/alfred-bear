@@ -48,12 +48,12 @@ except ImportError:  # pragma: no cover
 
 try:
     from .background import run_in_background
-    from .update import Version
+    from .update import check_update, Version
 except (ValueError, ImportError):
     # ValueError is thrown is py2
     # ImportError is thrown is py3
     from background import _process_exists, run_in_background
-    from update import Version
+    from update import check_update, Version
 
 SUPPORTS_CPICKLE = True
 try:
@@ -2536,13 +2536,11 @@ class Workflow(object):
             installed, else ``False``
 
         """
-        import update
-
         github_slug = self._update_settings['github_slug']
         # version = self._update_settings['version']
         version = str(self.version)
 
-        if not update.check_update(github_slug, version, self.prereleases):
+        if not check_update(github_slug, version, self.prereleases):
             return False
 
         # update.py is adjacent to this file
