@@ -2538,7 +2538,7 @@ class Workflow(object):
 
         # update.py is adjacent to this file
         update_script = os.path.join(os.path.dirname(__file__),
-                                     b'update.py')
+                                     'update.py')
 
         cmd = ['/usr/bin/python', update_script, 'install', github_slug,
                version]
