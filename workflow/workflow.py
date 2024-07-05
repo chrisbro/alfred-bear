@@ -2270,7 +2270,7 @@ class Workflow(object):
                                       icon=ICON_ERROR)
                     except NameError:
                         self.add_item("Error in workflow '%s'" % name,
-                                      err,
+                                      str(err),
                                       icon=ICON_ERROR)
                     self.send_feedback()
             return 1
