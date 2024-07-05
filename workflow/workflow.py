@@ -1044,11 +1044,8 @@ class Settings(dict):
                     json.dump(data, file_obj, sort_keys=True, indent=2,
                               encoding='utf-8')
                 except TypeError as err:
-                    if str(err) == "JSONEncoder.__init__() got an unexpected keyword argument 'encoding'":
-                        data_as_str = json.dumps(data, sort_keys=True, indent=2)
-                        file_obj.write(data_as_str.encode())
-                    else:
-                        raise
+                    data_as_str = json.dumps(data, sort_keys=True, indent=2)
+                    file_obj.write(data_as_str.encode())
 
     # dict methods
     def __setitem__(self, key, value):
